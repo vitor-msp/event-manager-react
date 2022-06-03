@@ -1,5 +1,5 @@
 // import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import {
@@ -15,13 +15,16 @@ function App() {
     (state: RootState) => state.eventsCalendar.data.years
   );
   const dispatch = useDispatch<AppDispatch>();
+  const [count, setCount] = useState(1);
 
   useEffect(() => {
     console.log(years);
   }, [years]);
 
   const getEvents = () => {
-    dispatch(getEventsRequest());
+    console.log(count);
+    dispatch(getEventsRequest(count));
+    setCount(2);
   };
 
   const editEventData = () => {

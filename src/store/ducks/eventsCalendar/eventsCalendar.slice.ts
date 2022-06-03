@@ -32,15 +32,22 @@ const eventsCalendarSlice = createSlice({
       const month = payload.month;
       const days = payload.days;
 
-      const savedDays = state.data.years
-        .find((y) => y.year === year)
-        ?.months.find((m) => m.month === month)?.days;
+      const savedMonths = state.data.years.find((y) => y.year === year)!.months;
 
-      while (savedDays!.length > 0) {
-        savedDays!.pop();
+      const savedMonth = savedMonths.find((m) => m.month === month);
+
+      if (savedMonth) {
+        const savedDays = savedMonth.days;
+        while (savedDays!.length > 0) {
+          savedDays!.pop();
+        }
+        savedDays!.push(...days);
+      } else {
+        savedMonths.push({
+          month,
+          days,
+        });
       }
-
-      savedDays!.push(...days);
     },
     editEvent: (state, { payload }: PayloadAction<IEvent>) => {
       const { id, title, start, duration, guests } = payload;
