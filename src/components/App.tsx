@@ -46,10 +46,10 @@ function App() {
   const addEvent = () => {
     dispatch(
       postEventRequest({
-        id: 3,
+        id: 1000,
         creator: 1,
-        title: "Event 3",
-        start: new Date(),
+        title: "Event 1000",
+        start: new Date(new Date().getTime() + 2 * 24 * 60 * 60 * 1000),
         duration: 0,
         guests: [
           { user: 2, permission: "Editor" },
