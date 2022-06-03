@@ -3,6 +3,10 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import {
+  clearCurrentEvent,
+  setCurrentEvent,
+} from "../store/ducks/currentEvent/currentEvent.slice";
+import {
   deleteEventRequest,
   getEventsRequest,
   postEventRequest,
@@ -14,12 +18,17 @@ function App() {
   const years = useSelector(
     (state: RootState) => state.eventsCalendar.data.years
   );
+  const currentEvent = useSelector((state: RootState) => state.currentEvent);
   const dispatch = useDispatch<AppDispatch>();
   const [count, setCount] = useState(1);
 
   useEffect(() => {
     console.log(years);
   }, [years]);
+
+  useEffect(() => {
+    console.log(currentEvent);
+  }, [currentEvent]);
 
   const getEvents = () => {
     console.log(count);
@@ -99,6 +108,26 @@ function App() {
     );
   };
 
+  const callModal = () => {
+    dispatch(
+      setCurrentEvent({
+        id: 1,
+        creator: 1,
+        title: "Event 1",
+        start: new Date(),
+        duration: 0,
+        guests: [
+          { user: 2, permission: "Editor" },
+          { user: 3, permission: "Viewer" },
+        ],
+      })
+    );
+  };
+
+  const closeModal = () => {
+    dispatch(clearCurrentEvent());
+  };
+
   return (
     <div>
       <p>hello event manager</p>
@@ -107,6 +136,9 @@ function App() {
       <button onClick={addEvent}>add event</button>
       <button onClick={deleteEvent}>delete event</button>
       <button onClick={editEventStart}>edit event start</button>
+      <hr />
+      <button onClick={callModal}>set current event</button>
+      <button onClick={closeModal}>clear current event</button>
     </div>
   );
 }
