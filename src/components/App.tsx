@@ -24,7 +24,7 @@ function App() {
   const getEvents = () => {
     console.log(count);
     dispatch(getEventsRequest(count));
-    setCount(2);
+    setCount(count + 1);
   };
 
   const editEventData = () => {

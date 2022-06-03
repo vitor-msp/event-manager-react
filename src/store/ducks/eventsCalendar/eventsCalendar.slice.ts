@@ -32,20 +32,36 @@ const eventsCalendarSlice = createSlice({
       const month = payload.month;
       const days = payload.days;
 
-      const savedMonths = state.data.years.find((y) => y.year === year)!.months;
+      const savedYears = state.data.years;
 
-      const savedMonth = savedMonths.find((m) => m.month === month);
+      const savedYear = savedYears.find((y) => y.year === year);
 
-      if (savedMonth) {
-        const savedDays = savedMonth.days;
-        while (savedDays!.length > 0) {
-          savedDays!.pop();
+      if (savedYear) {
+        const savedMonths = savedYear.months;
+
+        const savedMonth = savedMonths.find((m) => m.month === month);
+
+        if (savedMonth) {
+          const savedDays = savedMonth.days;
+          while (savedDays!.length > 0) {
+            savedDays!.pop();
+          }
+          savedDays!.push(...days);
+        } else {
+          savedMonths.push({
+            month,
+            days,
+          });
         }
-        savedDays!.push(...days);
       } else {
-        savedMonths.push({
-          month,
-          days,
+        savedYears.push({
+          year,
+          months: [
+            {
+              month,
+              days,
+            },
+          ],
         });
       }
     },

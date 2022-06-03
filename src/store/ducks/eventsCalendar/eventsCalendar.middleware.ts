@@ -1,4 +1,4 @@
-import { eventsMockJul, eventsMockJun } from "../../../services/events.mock";
+import { eventsMock2023, eventsMockJul, eventsMockJun } from "../../../services/events.mock";
 import { AppThunk } from "../../store";
 import { addEvent, addMonth, removeEvent } from "./eventsCalendar.slice";
 import { IEvent } from "./eventsCalendar.types";
@@ -10,8 +10,10 @@ export const getEventsRequest =
       // simulate request;
       if (count === 1) {
         dispatch(addMonth(eventsMockJun));
-      } else {
+      } else if(count === 2) {
         dispatch(addMonth(eventsMockJul));
+      } else {
+        dispatch(addMonth(eventsMock2023));
       }
 
     } catch (error) {
