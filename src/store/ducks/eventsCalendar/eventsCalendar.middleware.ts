@@ -1,6 +1,6 @@
 import { eventsMock } from "../../../services/events.mock";
 import { AppThunk } from "../../store";
-import { addEvent, addMonth } from "./eventsCalendar.slice";
+import { addEvent, addMonth, removeEvent } from "./eventsCalendar.slice";
 import { IEvent } from "./eventsCalendar.types";
 
 export const getEventsRequest =
@@ -30,6 +30,22 @@ export const postEventRequest =
       dispatch(addEvent(res.data));
     } catch (error) {
       alert("Error in post event");
+      //   dispatch(postGraphFailure());
+    }
+  };
+
+export const deleteEventRequest =
+  (event: IEvent): AppThunk =>
+  async (dispatch) => {
+    try {
+      // simulate request;
+      const res = {
+        data: event,
+      };
+
+      dispatch(removeEvent(res.data));
+    } catch (error) {
+      alert("Error in remove event");
       //   dispatch(postGraphFailure());
     }
   };

@@ -1,7 +1,12 @@
 // import React from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { getEventsRequest, postEventRequest } from "../store/ducks/eventsCalendar/eventsCalendar.middleware";
+import {
+  deleteEventRequest,
+  getEventsRequest,
+  postEventRequest,
+} from "../store/ducks/eventsCalendar/eventsCalendar.middleware";
 import { editEvent } from "../store/ducks/eventsCalendar/eventsCalendar.slice";
 import { AppDispatch, RootState } from "../store/store";
 
@@ -11,7 +16,9 @@ function App() {
   );
   const dispatch = useDispatch<AppDispatch>();
 
-  console.log(years);
+  useEffect(() => {
+    console.log(years);
+  }, [years]);
 
   const getEvents = () => {
     dispatch(getEventsRequest());
@@ -49,12 +56,30 @@ function App() {
     );
   };
 
+  const deleteEvent = () => {
+    dispatch(
+      //@ts-ignore
+      deleteEventRequest({
+        id: 3,
+        start: new Date(),
+        // creator: 1,
+        // title: "Event 3",
+        // duration: 0,
+        // guests: [
+        //   { user: 2, permission: "Editor" },
+        //   { user: 3, permission: "Viewer" },
+        // ],
+      })
+    );
+  };
+
   return (
     <div className="App">
       <p>hello event manager</p>
       <button onClick={getEvents}>get events</button>
       <button onClick={editEventData}>edit event data</button>
       <button onClick={addEvent}>add event</button>
+      <button onClick={deleteEvent}>delete event</button>
     </div>
   );
 }

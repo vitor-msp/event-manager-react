@@ -58,15 +58,26 @@ const eventsCalendarSlice = createSlice({
     addEvent: (state, { payload }: PayloadAction<IEvent>) => {
       const { start } = payload;
 
-      const savedEvent = state.data.years
+      state.data.years
         .find((y) => y.year === start.getFullYear())
         ?.months.find((m) => m.month === start.getMonth())
         ?.days.find((d) => d.day === start.getDate())
         ?.events.push(payload);
     },
+    removeEvent: (state, { payload }: PayloadAction<IEvent>) => {
+      const { id, start } = payload;
+
+      const day = state.data.years
+        .find((y) => y.year === start.getFullYear())
+        ?.months.find((m) => m.month === start.getMonth())
+        ?.days.find((d) => d.day === start.getDate());
+
+      day!.events = day!.events.filter((e) => e.id !== id);
+    },
   },
 });
 
-export const { addMonth, editEvent, addEvent } = eventsCalendarSlice.actions;
+export const { addMonth, editEvent, addEvent, removeEvent } =
+  eventsCalendarSlice.actions;
 
 export const eventsCalendarReducer = eventsCalendarSlice.reducer;
