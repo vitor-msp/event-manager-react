@@ -55,9 +55,18 @@ const eventsCalendarSlice = createSlice({
       savedEvent!.duration = duration;
       savedEvent!.guests = guests;
     },
+    addEvent: (state, { payload }: PayloadAction<IEvent>) => {
+      const { start } = payload;
+
+      const savedEvent = state.data.years
+        .find((y) => y.year === start.getFullYear())
+        ?.months.find((m) => m.month === start.getMonth())
+        ?.days.find((d) => d.day === start.getDate())
+        ?.events.push(payload);
+    },
   },
 });
 
-export const { addMonth, editEvent } = eventsCalendarSlice.actions;
+export const { addMonth, editEvent, addEvent } = eventsCalendarSlice.actions;
 
 export const eventsCalendarReducer = eventsCalendarSlice.reducer;
