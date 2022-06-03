@@ -67,7 +67,7 @@ function App() {
     dispatch(
       //@ts-ignore
       deleteEventRequest({
-        id: 3,
+        id: 1,
         start: new Date(),
         // creator: 1,
         // title: "Event 3",
@@ -100,7 +100,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div>
       <p>hello event manager</p>
       <button onClick={getEvents}>get events</button>
       <button onClick={editEventData}>edit event data</button>

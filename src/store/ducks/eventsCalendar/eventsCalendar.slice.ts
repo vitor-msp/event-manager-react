@@ -5,6 +5,12 @@ import {
   IEventsBackend,
   IEventsCalendarState,
 } from "./eventsCalendar.types";
+import {
+  findDayInStore,
+  addEventToStore,
+  findEventInDay,
+  removeEventInDay,
+} from "./eventsHelper";
 
 const currentDate = new Date();
 
@@ -70,65 +76,29 @@ const eventsCalendarSlice = createSlice({
       const { oldStart, editedEvent } = payload;
       const { id, title, start, duration, guests } = editedEvent;
 
-      const day = state.data.years
-        .find((y) => y.year === oldStart.getFullYear())
-        ?.months.find((m) => m.month === oldStart.getMonth())
-        ?.days.find((d) => d.day === oldStart.getDate());
+      const day = findDayInStore(state, oldStart);
 
-      const savedEvent = day?.events.find((e) => e.id === id);
+      let savedEvent = findEventInDay(id, day);
 
       if (oldStart === start) {
         savedEvent!.title = title;
         savedEvent!.duration = duration;
         savedEvent!.guests = guests;
       } else {
-        // remove old event
-        day!.events = day!.events.filter((e) => e.id !== id);
-        // add edited event
-        const savedMonth = state.data.years
-          .find((y) => y.year === start.getFullYear())
-          ?.months.find((m) => m.month === start.getMonth());
+        removeEventInDay(id, day!);
 
-        if (savedMonth) {
-          const savedDays = savedMonth.days;
-
-          const savedDay = savedDays.find((d) => d.day === start.getDate());
-
-          if (savedDay) {
-            savedDay.events.push(editedEvent);
-          } else {
-            savedDays.push({ day: start.getDate(), events: [editedEvent] });
-          }
-        }
+        addEventToStore(state, editedEvent);
       }
     },
     addEvent: (state, { payload }: PayloadAction<IEvent>) => {
-      const { start } = payload;
-
-      const savedMonth = state.data.years
-        .find((y) => y.year === start.getFullYear())
-        ?.months.find((m) => m.month === start.getMonth());
-
-      if (savedMonth) {
-        const savedDays = savedMonth.days;
-
-        const savedDay = savedDays.find((d) => d.day === start.getDate());
-
-        if (savedDay) {
-          savedDay.events.push(payload);
-        } else {
-          savedDays.push({ day: start.getDate(), events: [payload] });
-        }
-      }
+      addEventToStore(state, payload);
     },
     removeEvent: (state, { payload }: PayloadAction<IEvent>) => {
       const { id, start } = payload;
-      const day = state.data.years
-        .find((y) => y.year === start.getFullYear())
-        ?.months.find((m) => m.month === start.getMonth())
-        ?.days.find((d) => d.day === start.getDate());
 
-      day!.events = day!.events.filter((e) => e.id !== id);
+      const day = findDayInStore(state, start);
+
+      removeEventInDay(id, day!);
     },
   },
 });
