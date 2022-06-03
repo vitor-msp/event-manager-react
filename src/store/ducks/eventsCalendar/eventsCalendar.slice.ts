@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
+  IEditEvent,
   IEvent,
   IEventsBackend,
   IEventsCalendarState,
@@ -65,18 +66,41 @@ const eventsCalendarSlice = createSlice({
         });
       }
     },
-    editEvent: (state, { payload }: PayloadAction<IEvent>) => {
-      const { id, title, start, duration, guests } = payload;
+    editEvent: (state, { payload }: PayloadAction<IEditEvent>) => {
+      const { oldStart, editedEvent } = payload;
+      const { id, title, start, duration, guests } = editedEvent;
 
-      const savedEvent = state.data.years
-        .find((y) => y.year === start.getFullYear())
-        ?.months.find((m) => m.month === start.getMonth())
-        ?.days.find((d) => d.day === start.getDate())
-        ?.events.find((e) => e.id === id);
+      const day = state.data.years
+        .find((y) => y.year === oldStart.getFullYear())
+        ?.months.find((m) => m.month === oldStart.getMonth())
+        ?.days.find((d) => d.day === oldStart.getDate());
 
-      savedEvent!.title = title;
-      savedEvent!.duration = duration;
-      savedEvent!.guests = guests;
+      const savedEvent = day?.events.find((e) => e.id === id);
+
+      if (oldStart === start) {
+        savedEvent!.title = title;
+        savedEvent!.duration = duration;
+        savedEvent!.guests = guests;
+      } else {
+        // remove old event
+        day!.events = day!.events.filter((e) => e.id !== id);
+        // add edited event
+        const savedMonth = state.data.years
+          .find((y) => y.year === start.getFullYear())
+          ?.months.find((m) => m.month === start.getMonth());
+
+        if (savedMonth) {
+          const savedDays = savedMonth.days;
+
+          const savedDay = savedDays.find((d) => d.day === start.getDate());
+
+          if (savedDay) {
+            savedDay.events.push(editedEvent);
+          } else {
+            savedDays.push({ day: start.getDate(), events: [editedEvent] });
+          }
+        }
+      }
     },
     addEvent: (state, { payload }: PayloadAction<IEvent>) => {
       const { start } = payload;
@@ -99,7 +123,6 @@ const eventsCalendarSlice = createSlice({
     },
     removeEvent: (state, { payload }: PayloadAction<IEvent>) => {
       const { id, start } = payload;
-
       const day = state.data.years
         .find((y) => y.year === start.getFullYear())
         ?.months.find((m) => m.month === start.getMonth())

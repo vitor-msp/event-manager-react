@@ -6,8 +6,8 @@ import {
   deleteEventRequest,
   getEventsRequest,
   postEventRequest,
+  putEventRequest,
 } from "../store/ducks/eventsCalendar/eventsCalendar.middleware";
-import { editEvent } from "../store/ducks/eventsCalendar/eventsCalendar.slice";
 import { AppDispatch, RootState } from "../store/store";
 
 function App() {
@@ -28,17 +28,21 @@ function App() {
   };
 
   const editEventData = () => {
+    const date = new Date();
     dispatch(
-      editEvent({
-        id: 1,
-        creator: 1,
-        title: "Event 1 Edited",
-        start: new Date(),
-        duration: 0,
-        guests: [
-          { user: 2, permission: "Editor" },
-          { user: 3, permission: "Viewer" },
-        ],
+      putEventRequest({
+        oldStart: date,
+        editedEvent: {
+          id: 1,
+          creator: 1,
+          title: "Event 1 Edited",
+          start: date,
+          duration: 0,
+          guests: [
+            { user: 2, permission: "Editor" },
+            { user: 3, permission: "Viewer" },
+          ],
+        },
       })
     );
   };
@@ -76,6 +80,25 @@ function App() {
     );
   };
 
+  const editEventStart = () => {
+    dispatch(
+      putEventRequest({
+        oldStart: new Date(),
+        editedEvent: {
+          id: 1,
+          creator: 1,
+          title: "Event 1 Start Edited",
+          start: new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000),
+          duration: 0,
+          guests: [
+            { user: 2, permission: "Editor" },
+            { user: 3, permission: "Viewer" },
+          ],
+        },
+      })
+    );
+  };
+
   return (
     <div className="App">
       <p>hello event manager</p>
@@ -83,6 +106,7 @@ function App() {
       <button onClick={editEventData}>edit event data</button>
       <button onClick={addEvent}>add event</button>
       <button onClick={deleteEvent}>delete event</button>
+      <button onClick={editEventStart}>edit event start</button>
     </div>
   );
 }

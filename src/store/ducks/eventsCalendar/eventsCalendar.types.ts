@@ -27,6 +27,12 @@ export interface IGuest {
   permission: string;
 };
 
+// edit event type
+export interface IEditEvent {
+  oldStart: Date;
+  editedEvent: IEvent;
+};
+
 // backend type
 export interface IEventsBackend {
   year: number;
