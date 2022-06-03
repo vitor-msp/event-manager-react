@@ -1,5 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IEventsBackend, IEventsCalendarState } from "./eventsCalendar.types";
+import {
+  IEvent,
+  IEventsBackend,
+  IEventsCalendarState,
+} from "./eventsCalendar.types";
 
 const currentDate = new Date();
 
@@ -28,14 +32,32 @@ const eventsCalendarSlice = createSlice({
       const month = payload.month;
       const days = payload.days;
 
-      state.data.years
+      const savedDays = state.data.years
         .find((y) => y.year === year)
-        ?.months.find((m) => m.month === month)
-        ?.days.push(...days);
+        ?.months.find((m) => m.month === month)?.days;
+
+      while (savedDays!.length > 0) {
+        savedDays!.pop();
+      }
+
+      savedDays!.push(...days);
+    },
+    editEvent: (state, { payload }: PayloadAction<IEvent>) => {
+      const { id, title, start, duration, guests } = payload;
+
+      const savedEvent = state.data.years
+        .find((y) => y.year === start.getFullYear())
+        ?.months.find((m) => m.month === start.getMonth())
+        ?.days.find((d) => d.day === start.getDate())
+        ?.events.find((e) => e.id === id);
+
+      savedEvent!.title = title;
+      savedEvent!.duration = duration;
+      savedEvent!.guests = guests;
     },
   },
 });
 
-export const { addMonth } = eventsCalendarSlice.actions;
+export const { addMonth, editEvent } = eventsCalendarSlice.actions;
 
 export const eventsCalendarReducer = eventsCalendarSlice.reducer;

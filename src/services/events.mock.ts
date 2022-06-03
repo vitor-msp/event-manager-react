@@ -24,7 +24,7 @@ export const eventsMock: IEventsBackend = {
           id: 2,
           creator: 2,
           title: "Event 2",
-          start: new Date(currentDate.getTime() + 24 * 60 * 60),
+          start: new Date(currentDate.getTime() + 60 * 60 * 1000),
           duration: 0,
           guests: [
             { user: 1, permission: "Editor" },
