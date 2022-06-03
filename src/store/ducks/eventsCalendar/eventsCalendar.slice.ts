@@ -10,6 +10,7 @@ import {
   addEventToStore,
   findEventInDay,
   removeEventInDay,
+  addMonthToStore,
 } from "./eventsHelper";
 
 const currentDate = new Date();
@@ -35,42 +36,7 @@ const eventsCalendarSlice = createSlice({
   initialState,
   reducers: {
     addMonth: (state, { payload }: PayloadAction<IEventsBackend>) => {
-      const year = payload.year;
-      const month = payload.month;
-      const days = payload.days;
-
-      const savedYears = state.data.years;
-
-      const savedYear = savedYears.find((y) => y.year === year);
-
-      if (savedYear) {
-        const savedMonths = savedYear.months;
-
-        const savedMonth = savedMonths.find((m) => m.month === month);
-
-        if (savedMonth) {
-          const savedDays = savedMonth.days;
-          while (savedDays!.length > 0) {
-            savedDays!.pop();
-          }
-          savedDays!.push(...days);
-        } else {
-          savedMonths.push({
-            month,
-            days,
-          });
-        }
-      } else {
-        savedYears.push({
-          year,
-          months: [
-            {
-              month,
-              days,
-            },
-          ],
-        });
-      }
+      addMonthToStore(state, payload);
     },
     editEvent: (state, { payload }: PayloadAction<IEditEvent>) => {
       const { oldStart, editedEvent } = payload;

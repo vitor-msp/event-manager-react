@@ -2,6 +2,7 @@ import { WritableDraft } from "immer/dist/internal";
 import {
   IDay,
   IEvent,
+  IEventsBackend,
   IEventsCalendarState,
   IMonth,
 } from "./eventsCalendar.types";
@@ -57,5 +58,47 @@ export const addEventToStore = (
     } else {
       savedDays.push({ day: start.getDate(), events: [event] });
     }
+  }
+};
+
+export const addMonthToStore = (
+  state: WritableDraft<IEventsCalendarState>,
+  events: WritableDraft<IEventsBackend>
+): void => {
+  const { year, month, days } = events;
+
+  const savedYears = state.data.years;
+
+  const savedYear = savedYears.find((y) => y.year === year);
+
+  if (savedYear) {
+    const savedMonths = savedYear.months;
+
+    const savedMonth = savedMonths.find((m) => m.month === month);
+
+    if (savedMonth) {
+      const savedDays = savedMonth.days;
+
+      while (savedDays!.length > 0) {
+        savedDays!.pop();
+      }
+
+      savedDays!.push(...days);
+    } else {
+      savedMonths.push({
+        month,
+        days,
+      });
+    }
+  } else {
+    savedYears.push({
+      year,
+      months: [
+        {
+          month,
+          days,
+        },
+      ],
+    });
   }
 };
