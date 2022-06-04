@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { clearCurrentEvent } from "../store/ducks/currentEvent/currentEvent.slice";
 import {
@@ -20,7 +20,7 @@ export type EventType = {
 
 export const Event: React.FC<EventType> = (props) => {
   const { id, creator, duration, guests, start, title } = props.event.data!;
-
+  const [canEdit, setCanEdit] = useState<boolean>(false);
   const [currentEvent, setCurrentEvent] = useState<ICurrentEvent>({
     id,
     creator,
@@ -29,6 +29,25 @@ export const Event: React.FC<EventType> = (props) => {
     start: start ?? new Date(),
     title,
   });
+
+  useEffect(() => {
+    (() => {
+      if (props.event.data!.creator === 1) {
+        setCanEdit(true);
+        return;
+      }
+
+      if (
+        props.event.data!.guests?.find(
+          (g) => g.user === 1 && g.permission === "Editor"
+        )
+      ) {
+        setCanEdit(true);
+        return;
+      }
+      setCanEdit(false);
+    })();
+  }, []);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -91,19 +110,6 @@ export const Event: React.FC<EventType> = (props) => {
       start: start!,
       title: title!,
     };
-  };
-
-  const canEdit = (): boolean => {
-    if (props.event.data!.creator === 1) return true;
-
-    if (
-      props.event.data!.guests?.find(
-        (g) => g.user === 1 && g.permission === "Editor"
-      )
-    )
-      return true;
-
-    return false;
   };
 
   return (
@@ -171,7 +177,7 @@ export const Event: React.FC<EventType> = (props) => {
       )}
 
       <br />
-      {!props.event.isAddition && canEdit() && (
+      {!props.event.isAddition && canEdit && (
         <button onClick={handleEditEvent}>edit event</button>
       )}
     </div>
