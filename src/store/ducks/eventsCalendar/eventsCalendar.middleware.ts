@@ -12,6 +12,8 @@ import {
 } from "./eventsCalendar.slice";
 import { IEditEvent, IEvent } from "./eventsCalendar.types";
 
+let counter = 1;
+
 export const getEventsRequest =
   (date: Date): AppThunk =>
   async (dispatch) => {
@@ -34,7 +36,7 @@ export const getEventsRequest =
               day: date.getDate(),
               events: [
                 {
-                  id: 1,
+                  id: counter++,
                   creator: 1,
                   title: "Event Test",
                   start: date,

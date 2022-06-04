@@ -5,9 +5,9 @@ import {
   ICurrentEvent,
   IShowEvent,
 } from "../store/ducks/currentEvent/currentEvent.types";
+import { postEventRequest } from "../store/ducks/eventsCalendar/eventsCalendar.middleware";
 import { IEvent } from "../store/ducks/eventsCalendar/eventsCalendar.types";
 import { AppDispatch } from "../store/store";
-import { getFormattedTime } from "./EventMini";
 
 export type EventType = {
   event: IShowEvent;
@@ -21,7 +21,7 @@ export const Event: React.FC<EventType> = (props) => {
     creator,
     duration,
     guests,
-    start,
+    start: start ?? new Date(),
     title,
   });
 
@@ -42,8 +42,23 @@ export const Event: React.FC<EventType> = (props) => {
     });
   };
 
-  const formatDate = (date: Date) => {
+  const formatDate = (date: Date): string => {
     return date.toISOString().substring(0, 16);
+  };
+
+  const addEvent = async (): Promise<void> => {
+    const { creator, duration, guests, id, start, title } = currentEvent;
+
+    const eventToPost: IEvent = {
+      creator: creator!,
+      duration: duration!,
+      guests: guests!,
+      id: id!,
+      start: start!,
+      title: title!,
+    };
+
+    await dispatch(postEventRequest(eventToPost));
   };
 
   return (
@@ -70,11 +85,7 @@ export const Event: React.FC<EventType> = (props) => {
       <span>{`start `}</span>
       <input
         type={"datetime-local"}
-        value={
-          currentEvent.start
-            ? formatDate(currentEvent.start)
-            : formatDate(new Date())
-        }
+        value={formatDate(currentEvent.start!)}
         name={"start"}
         onChange={handleChangeStart}
       />
@@ -100,7 +111,9 @@ export const Event: React.FC<EventType> = (props) => {
             </div>
           );
         })}
+
       <br />
+      <button onClick={addEvent}>add</button>
     </div>
   );
 };
