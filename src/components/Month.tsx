@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
+import {
+  decrementMonth,
+  incrementMonth,
+} from "../store/ducks/currentDate/currentDate.slice";
+import { AppDispatch, RootState } from "../store/store";
 import { DayMini } from "./DayMini";
 
 export const Month = () => {
@@ -57,9 +62,21 @@ export const Month = () => {
     populateDays();
   }, [days]);
 
+  const dispatch = useDispatch<AppDispatch>();
+
+  const handleIncrementMonth = () => {
+    dispatch(incrementMonth());
+  };
+
+  const handleDecrementMonth = () => {
+    dispatch(decrementMonth());
+  };
+
   return (
     <div>
-      <p>hello month</p>
+      <p>hello month: {currentDate.getMonth()}</p>
+      <button onClick={handleDecrementMonth}>{`<<`}</button>
+      <button onClick={handleIncrementMonth}>{`>>`}</button>
       <div>
         {daysRender.map((day: any) => {
           return day;

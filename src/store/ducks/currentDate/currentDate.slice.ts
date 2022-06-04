@@ -10,18 +10,24 @@ const currentDateSlice = createSlice({
   initialState,
   reducers: {
     incrementMonth: (state) => {
-      const newCurrentDate = new Date(state.currentDate.getTime());
+      // const newCurrentDate = new Date(state.currentDate.getTime());
 
-      newCurrentDate.setMonth(newCurrentDate.getMonth() + 1);
+      // newCurrentDate.setMonth(newCurrentDate.getMonth() + 1);
 
-      state.currentDate = newCurrentDate;
+      // state.currentDate = newCurrentDate;
+      state.currentDate = new Date(
+        state.currentDate.getTime() + 30 * 24 * 60 * 60 * 1000
+      );
     },
     decrementMonth: (state) => {
-      const newCurrentDate = new Date(state.currentDate.getTime());
+      // const newCurrentDate = new Date(state.currentDate.getTime());
 
-      newCurrentDate.setMonth(newCurrentDate.getMonth() - 1);
+      // newCurrentDate.setMonth(newCurrentDate.getMonth() - 1);
 
-      state.currentDate = newCurrentDate;
+      // state.currentDate = newCurrentDate;
+      state.currentDate = new Date(
+        state.currentDate.getTime() - 30 * 24 * 60 * 60 * 1000
+      );
     },
     incrementDay: (state) => {
       const newCurrentDate = new Date(state.currentDate.getTime());
