@@ -3,6 +3,10 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import {
+  decrementMonth,
+  incrementMonth,
+} from "../store/ducks/currentDate/currentDate.slice";
+import {
   clearCurrentEvent,
   setCurrentEvent,
 } from "../store/ducks/currentEvent/currentEvent.slice";
@@ -15,20 +19,27 @@ import {
 import { AppDispatch, RootState } from "../store/store";
 
 function App() {
-  const years = useSelector(
-    (state: RootState) => state.eventsCalendar.data.years
+  // const years = useSelector(
+  //   (state: RootState) => state.eventsCalendar.data.years
+  // );
+  // const currentEvent = useSelector((state: RootState) => state.currentEvent);
+  const currentDate = useSelector(
+    (state: RootState) => state.currentDate.currentDate
   );
-  const currentEvent = useSelector((state: RootState) => state.currentEvent);
   const dispatch = useDispatch<AppDispatch>();
   const [count, setCount] = useState(1);
 
-  useEffect(() => {
-    console.log(years);
-  }, [years]);
+  // useEffect(() => {
+  //   console.log(years);
+  // }, [years]);
+
+  // useEffect(() => {
+  //   console.log(currentEvent);
+  // }, [currentEvent]);
 
   useEffect(() => {
-    console.log(currentEvent);
-  }, [currentEvent]);
+    console.log(currentDate.toString());
+  }, [currentDate]);
 
   const getEvents = () => {
     console.log(count);
@@ -128,6 +139,14 @@ function App() {
     dispatch(clearCurrentEvent());
   };
 
+  const incMonth = () => {
+    dispatch(incrementMonth());
+  };
+
+  const decMonth = () => {
+    dispatch(decrementMonth());
+  };
+
   return (
     <div>
       <p>hello event manager</p>
@@ -139,6 +158,9 @@ function App() {
       <hr />
       <button onClick={callModal}>set current event</button>
       <button onClick={closeModal}>clear current event</button>
+      <hr />
+      <button onClick={incMonth}>increment month</button>
+      <button onClick={decMonth}>decrement month</button>
     </div>
   );
 }
