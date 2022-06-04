@@ -38,6 +38,7 @@ const eventsCalendarSlice = createSlice({
   reducers: {
     addMonth: (state, { payload }: PayloadAction<IEventsBackend>) => {
       addMonthToStore(state, payload);
+      state.counter++;
     },
     editEvent: (state, { payload }: PayloadAction<IEditEvent>) => {
       const { oldStart, editedEvent } = payload;
@@ -56,9 +57,12 @@ const eventsCalendarSlice = createSlice({
 
         addEventToStore(state, editedEvent);
       }
+
+      state.counter++;
     },
     addEvent: (state, { payload }: PayloadAction<IEvent>) => {
       addEventToStore(state, payload);
+      state.counter++;
     },
     removeEvent: (state, { payload }: PayloadAction<IEvent>) => {
       const { id, start } = payload;
@@ -66,6 +70,8 @@ const eventsCalendarSlice = createSlice({
       const day = findDayInStore(state, start);
 
       removeEventInDay(id, day!);
+
+      state.counter++;
     },
   },
 });

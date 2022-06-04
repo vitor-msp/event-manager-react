@@ -47,8 +47,6 @@ export const addMonthToStore = (
       ],
     });
   }
-
-  state.counter++;
 };
 
 const findMonthInStore = (
