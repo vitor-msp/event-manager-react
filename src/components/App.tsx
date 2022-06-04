@@ -13,7 +13,6 @@ import {
   setCurrentEvent,
 } from "../store/ducks/currentEvent/currentEvent.slice";
 import {
-  deleteEventRequest,
   getEventsRequest,
   postEventRequest,
   putEventRequest,
@@ -94,20 +93,20 @@ function App() {
   // };
 
   const deleteEvent = () => {
-    dispatch(
-      //@ts-ignore
-      deleteEventRequest({
-        id: 1,
-        start: new Date(),
-        // creator: 1,
-        // title: "Event 3",
-        // duration: 0,
-        // guests: [
-        //   { user: 2, permission: "Editor" },
-        //   { user: 3, permission: "Viewer" },
-        // ],
-      })
-    );
+    // dispatch(
+    //   //@ts-ignore
+    //   deleteEventRequest({
+    //     id: 1,
+    //     start: new Date(),
+    //     // creator: 1,
+    //     // title: "Event 3",
+    //     // duration: 0,
+    //     // guests: [
+    //     //   { user: 2, permission: "Editor" },
+    //     //   { user: 3, permission: "Viewer" },
+    //     // ],
+    //   })
+    // );
   };
 
   const editEventStart = () => {

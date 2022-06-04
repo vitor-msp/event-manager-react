@@ -73,7 +73,7 @@ export const postEventRequest =
     }
   };
 
-export const deleteEventRequest =
+export const cancelEventRequest =
   (event: IEvent): AppThunk =>
   async (dispatch) => {
     try {
@@ -84,7 +84,7 @@ export const deleteEventRequest =
 
       dispatch(removeEvent(res.data));
     } catch (error) {
-      alert("Error in remove event");
+      alert("Error in cancel event");
       //   dispatch(postGraphFailure());
     }
   };
