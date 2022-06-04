@@ -8,6 +8,10 @@ export type EventType = {
   event: IEvent;
 };
 
+export const getFormattedTime = (time: Date): string => {
+  return `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`;
+};
+
 export const EventMini: React.FC<EventType> = (props) => {
   const { title, start } = props.event;
 
@@ -15,10 +19,6 @@ export const EventMini: React.FC<EventType> = (props) => {
 
   const handleSelectEvent = () => {
     dispatch(setCurrentEvent(props.event));
-  };
-
-  const getFormattedTime = (time: Date): string => {
-    return `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`;
   };
 
   return (

@@ -39,7 +39,10 @@ export const getEventsRequest =
                   title: "Event Test",
                   start: date,
                   duration: 0,
-                  guests: [],
+                  guests: [
+                    { user: 2, permission: "Editor" },
+                    { user: 3, permission: "Viewer" },
+                  ],
                 },
               ],
             },
