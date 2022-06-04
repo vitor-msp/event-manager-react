@@ -18,7 +18,7 @@ export const EventMini: React.FC<EventType> = (props) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const handleSelectEvent = () => {
-    dispatch(setCurrentEvent(props.event));
+    dispatch(setCurrentEvent({ isAddition: false, data: props.event }));
   };
 
   return (

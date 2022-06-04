@@ -75,7 +75,7 @@ function App() {
   };
 
   const addEvent = () => {
-    dispatch(setCurrentEvent(null));
+    dispatch(setCurrentEvent({ isAddition: true }));
   };
   // const addEvent = () => {
   //   dispatch(
@@ -130,19 +130,19 @@ function App() {
   };
 
   const callModal = () => {
-    dispatch(
-      setCurrentEvent({
-        id: 1,
-        creator: 1,
-        title: "Event 1",
-        start: new Date(),
-        duration: 0,
-        guests: [
-          { user: 2, permission: "Editor" },
-          { user: 3, permission: "Viewer" },
-        ],
-      })
-    );
+    // dispatch(
+    //   setCurrentEvent({
+    //     id: 1,
+    //     creator: 1,
+    //     title: "Event 1",
+    //     start: new Date(),
+    //     duration: 0,
+    //     guests: [
+    //       { user: 2, permission: "Editor" },
+    //       { user: 3, permission: "Viewer" },
+    //     ],
+    //   })
+    // );
   };
 
   const closeModal = () => {

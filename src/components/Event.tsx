@@ -5,11 +5,11 @@ import { ICurrentEvent } from "../store/ducks/currentEvent/currentEvent.types";
 import { AppDispatch } from "../store/store";
 import { getFormattedTime } from "./EventMini";
 
-export type EventYpe = {
+export type EventType = {
   event: ICurrentEvent;
 };
 
-export const Event: React.FC<EventYpe> = (props) => {
+export const Event: React.FC<EventType> = (props) => {
   const { id, creator, duration, guests, start, title } = props.event;
 
   const dispatch = useDispatch<AppDispatch>();

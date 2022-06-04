@@ -10,8 +10,15 @@ export interface ICurrentEvent {
   guests: IGuest[] | null;
 }
 
+// show event type
+export interface IShowEvent {
+  isAddition: boolean;
+  data?: ICurrentEvent;
+}
+
 // state type
 export interface ICurrentEventState {
   data: ICurrentEvent;
   show: boolean;
+  isAddition: boolean;
 }

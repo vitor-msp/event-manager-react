@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ICurrentEvent, ICurrentEventState } from "./currentEvent.types";
+import { ICurrentEventState, IShowEvent } from "./currentEvent.types";
 
 const initialState: ICurrentEventState = {
   data: {
@@ -11,18 +11,22 @@ const initialState: ICurrentEventState = {
     guests: [],
   },
   show: false,
+  isAddition: true,
 };
 
 const currentEventSlice = createSlice({
   name: "currentEvent",
   initialState,
   reducers: {
-    setCurrentEvent: (
-      state,
-      { payload }: PayloadAction<ICurrentEvent | null>
-    ) => {
-      if (payload) {
-        const { id, title, creator, start, duration, guests } = payload;
+    setCurrentEvent: (state, { payload }: PayloadAction<IShowEvent>) => {
+      if (payload.isAddition) {
+        state.isAddition = true;
+
+        state.data = initialState.data;
+      } else {
+        state.isAddition = false;
+
+        const { id, title, creator, start, duration, guests } = payload.data!;
 
         state.data.id = id ?? null;
         state.data.title = title ?? null;
@@ -30,8 +34,6 @@ const currentEventSlice = createSlice({
         state.data.start = start ?? null;
         state.data.duration = duration ?? null;
         state.data.guests = guests ?? null;
-      } else {
-        state.data = initialState.data;
       }
 
       state.show = true;
