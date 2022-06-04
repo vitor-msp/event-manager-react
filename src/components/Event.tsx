@@ -113,7 +113,7 @@ export const Event: React.FC<EventType> = (props) => {
         })}
 
       <br />
-      <button onClick={addEvent}>add</button>
+      {props.event.isAddition && <button onClick={addEvent}>add</button>}
     </div>
   );
 };
