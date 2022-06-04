@@ -26,21 +26,21 @@ import {
 import { AppDispatch, RootState } from "../store/store";
 
 function App() {
-  // const years = useSelector(
-  //   (state: RootState) => state.eventsCalendar.data.years
-  // );
+  const years = useSelector(
+    (state: RootState) => state.eventsCalendar.data.years
+  );
   // const currentEvent = useSelector((state: RootState) => state.currentEvent);
   // const currentDate = useSelector(
   //   (state: RootState) => state.currentDate.currentDate
   // );
   // const viewMode = useSelector((state: RootState) => state.viewMode.type);
-  const users = useSelector((state: RootState) => state.users.data.users);
+  // const users = useSelector((state: RootState) => state.users.data.users);
   const dispatch = useDispatch<AppDispatch>();
   const [count, setCount] = useState(1);
 
   useEffect(() => {
-    console.log(users);
-  }, [users]);
+    console.log(years);
+  }, [years]);
 
   const getEvents = () => {
     console.log(count);
@@ -74,7 +74,7 @@ function App() {
         id: 3,
         creator: 1,
         title: "Event 3",
-        start: new Date(new Date().getTime() - 2 * 60 * 1000),
+        start: new Date(new Date().getTime() - 2 * 24 * 60 * 60 * 1000),
         duration: 0,
         guests: [
           { user: 2, permission: "Editor" },

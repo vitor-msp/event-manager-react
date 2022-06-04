@@ -77,6 +77,8 @@ export const addEventToStore = (
       sortEvents(savedDay.events);
     } else {
       savedDays.push({ day: start.getDate(), events: [event] });
+
+      sortDays(savedDays);
     }
   }
 };
@@ -108,5 +110,11 @@ export const removeEventInDay = (
 const sortEvents = (events: WritableDraft<IEvent>[]): void => {
   events.sort((a, b) => {
     return a.start.getTime() - b.start.getTime();
+  });
+};
+
+const sortDays = (days: WritableDraft<IDay>[]): void => {
+  days.sort((a, b) => {
+    return a.day - b.day;
   });
 };
