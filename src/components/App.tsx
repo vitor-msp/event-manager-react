@@ -46,7 +46,7 @@ function App() {
 
   const getEvents = () => {
     console.log(count);
-    dispatch(getEventsRequest(count));
+    dispatch(getEventsRequest(new Date()));
     setCount(count + 1);
   };
 

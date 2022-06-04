@@ -43,4 +43,5 @@ export interface IEventsBackend {
 // state type
 export interface IEventsCalendarState {
   data: IEventsCalendar;
+  counter: number;
 }

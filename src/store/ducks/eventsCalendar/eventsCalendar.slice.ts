@@ -18,17 +18,18 @@ const currentDate = new Date();
 const initialState: IEventsCalendarState = {
   data: {
     years: [
-      {
-        year: currentDate.getFullYear(),
-        months: [
-          {
-            month: currentDate.getMonth(),
-            days: [],
-          },
-        ],
-      },
+      // {
+      //   year: currentDate.getFullYear(),
+      //   months: [
+      //     {
+      //       month: currentDate.getMonth(),
+      //       days: [],
+      //     },
+      //   ],
+      // },
     ],
   },
+  counter: 0,
 };
 
 const eventsCalendarSlice = createSlice({

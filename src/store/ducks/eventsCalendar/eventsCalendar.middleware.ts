@@ -4,21 +4,39 @@ import {
   eventsMockJun,
 } from "../../../services/events.mock";
 import { AppThunk } from "../../store";
-import { addEvent, addMonth, editEvent, removeEvent } from "./eventsCalendar.slice";
+import {
+  addEvent,
+  addMonth,
+  editEvent,
+  removeEvent,
+} from "./eventsCalendar.slice";
 import { IEditEvent, IEvent } from "./eventsCalendar.types";
 
 export const getEventsRequest =
-  (count: number /*graph: IGraph*/): AppThunk =>
+  (date: Date): AppThunk =>
   async (dispatch) => {
     try {
       // simulate request;
-      if (count === 1) {
-        dispatch(addMonth(eventsMockJun));
-      } else if (count === 2) {
-        dispatch(addMonth(eventsMockJul));
-      } else {
-        dispatch(addMonth(eventsMock2023));
-      }
+      // if (count === 1) {
+      //   dispatch(addMonth(eventsMockJun));
+      // } else if (count === 2) {
+      //   dispatch(addMonth(eventsMockJul));
+      // } else {
+      //   dispatch(addMonth(eventsMock2023));
+      // }
+
+      dispatch(
+        addMonth({
+          year: date.getFullYear(),
+          month: date.getMonth(),
+          days: [
+            {
+              day: date.getDate(),
+              events: [],
+            },
+          ],
+        })
+      );
     } catch (error) {
       alert("Error in request events");
       //   dispatch(postGraphFailure());
