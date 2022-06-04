@@ -24,11 +24,12 @@ import {
   setViewMonth,
 } from "../store/ducks/viewMode/viewMode.slice";
 import { AppDispatch, RootState } from "../store/store";
+import { Month } from "./Month";
 
 function App() {
-  const years = useSelector(
-    (state: RootState) => state.eventsCalendar.data.years
-  );
+  // const years = useSelector(
+  //   (state: RootState) => state.eventsCalendar.data.years
+  // );
   // const currentEvent = useSelector((state: RootState) => state.currentEvent);
   // const currentDate = useSelector(
   //   (state: RootState) => state.currentDate.currentDate
@@ -38,9 +39,9 @@ function App() {
   const dispatch = useDispatch<AppDispatch>();
   const [count, setCount] = useState(1);
 
-  useEffect(() => {
-    console.log(years);
-  }, [years]);
+  // useEffect(() => {
+  //   console.log(years);
+  // }, [years]);
 
   const getEvents = () => {
     console.log(count);
@@ -171,6 +172,8 @@ function App() {
   return (
     <div>
       <p>hello event manager</p>
+      <Month/>
+      <hr />
       <button onClick={getEvents}>get events</button>
       <button onClick={editEventData}>edit event data</button>
       <button onClick={addEvent}>add event</button>
