@@ -18,6 +18,7 @@ import {
   postEventRequest,
   putEventRequest,
 } from "../store/ducks/eventsCalendar/eventsCalendar.middleware";
+import { getUsersRequest } from "../store/ducks/users/users.middleware";
 import {
   setViewDay,
   setViewMonth,
@@ -32,13 +33,14 @@ function App() {
   // const currentDate = useSelector(
   //   (state: RootState) => state.currentDate.currentDate
   // );
-  const viewMode = useSelector((state: RootState) => state.viewMode.type);
+  // const viewMode = useSelector((state: RootState) => state.viewMode.type);
+  const users = useSelector((state: RootState) => state.users.data.users);
   const dispatch = useDispatch<AppDispatch>();
   const [count, setCount] = useState(1);
 
   useEffect(() => {
-    console.log(viewMode);
-  }, [viewMode]);
+    console.log(users);
+  }, [users]);
 
   const getEvents = () => {
     console.log(count);
@@ -162,6 +164,10 @@ function App() {
     dispatch(setViewDay());
   };
 
+  const getUsers = () => {
+    dispatch(getUsersRequest());
+  };
+
   return (
     <div>
       <p>hello event manager</p>
@@ -182,6 +188,8 @@ function App() {
       <hr />
       <button onClick={viewMonth}>view Month</button>
       <button onClick={viewDay}>view Day</button>
+      <hr />
+      <button onClick={getUsers}>get users</button>
     </div>
   );
 }
