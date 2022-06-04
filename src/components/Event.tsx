@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { clearCurrentEvent } from "../store/ducks/currentEvent/currentEvent.slice";
 import { ICurrentEvent } from "../store/ducks/currentEvent/currentEvent.types";
 import { AppDispatch } from "../store/store";
 
@@ -10,16 +11,16 @@ export type EventYpe = {
 export const Event: React.FC<EventYpe> = (props) => {
   const { id, creator, duration, guests, start, title } = props.event;
 
-  // const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch<AppDispatch>();
 
-  // const handleViewDay = async () => {
-  //   await dispatch(setCurrentDay(day));
-
-  //   dispatch(setViewDay());
-  // };
+  const handleCloseEvent = () => {
+    dispatch(clearCurrentEvent());
+  };
 
   return (
     <div onClick={() => {}}>
+      <button onClick={handleCloseEvent}>X</button>
+      <br />
       <span>{`id ${id}`}</span>
       <br />
       <span>{`creator ${creator}`}</span>
