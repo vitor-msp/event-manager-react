@@ -75,20 +75,23 @@ function App() {
   };
 
   const addEvent = () => {
-    dispatch(
-      postEventRequest({
-        id: 3,
-        creator: 1,
-        title: "Event 3",
-        start: new Date(new Date().getTime() - 2 * 24 * 60 * 60 * 1000),
-        duration: 0,
-        guests: [
-          { user: 2, permission: "Editor" },
-          { user: 3, permission: "Viewer" },
-        ],
-      })
-    );
+    dispatch(setCurrentEvent(null));
   };
+  // const addEvent = () => {
+  //   dispatch(
+  //     postEventRequest({
+  //       id: 3,
+  //       creator: 1,
+  //       title: "Event 3",
+  //       start: new Date(new Date().getTime() - 2 * 24 * 60 * 60 * 1000),
+  //       duration: 0,
+  //       guests: [
+  //         { user: 2, permission: "Editor" },
+  //         { user: 3, permission: "Viewer" },
+  //       ],
+  //     })
+  //   );
+  // };
 
   const deleteEvent = () => {
     dispatch(
@@ -177,10 +180,12 @@ function App() {
   return (
     <div>
       <p>hello event manager</p>
+      <button onClick={addEvent}>add event</button>
+      <hr />
       {viewMode === ViewType.day && <Day />}
       {viewMode === ViewType.month && <Month />}
       <hr />
-      {currentEvent.id && <Event event={currentEvent}/>}
+      {currentEvent.show && <Event event={currentEvent.data} />}
       <hr />
       <button onClick={getEvents}>get events</button>
       <button onClick={editEventData}>edit event data</button>

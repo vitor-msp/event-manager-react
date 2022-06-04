@@ -13,4 +13,5 @@ export interface ICurrentEvent {
 // state type
 export interface ICurrentEventState {
   data: ICurrentEvent;
+  show: boolean;
 }

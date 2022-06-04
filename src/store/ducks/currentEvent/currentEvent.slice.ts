@@ -1,36 +1,50 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ICurrentEvent } from "./currentEvent.types";
+import { ICurrentEvent, ICurrentEventState } from "./currentEvent.types";
 
-const initialState: ICurrentEvent = {
-  id: null,
-  title: null,
-  creator: null,
-  start: null,
-  duration: null,
-  guests: [],
+const initialState: ICurrentEventState = {
+  data: {
+    id: null,
+    title: null,
+    creator: null,
+    start: null,
+    duration: null,
+    guests: [],
+  },
+  show: false,
 };
 
 const currentEventSlice = createSlice({
   name: "currentEvent",
   initialState,
   reducers: {
-    setCurrentEvent: (state, { payload }: PayloadAction<ICurrentEvent>) => {
-      const { id, title, creator, start, duration, guests } = payload;
+    setCurrentEvent: (
+      state,
+      { payload }: PayloadAction<ICurrentEvent | null>
+    ) => {
+      if (payload) {
+        const { id, title, creator, start, duration, guests } = payload;
 
-      state.id = id;
-      state.title = title;
-      state.creator = creator;
-      state.start = start;
-      state.duration = duration;
-      state.guests = guests;
+        state.data.id = id ?? null;
+        state.data.title = title ?? null;
+        state.data.creator = creator ?? null;
+        state.data.start = start ?? null;
+        state.data.duration = duration ?? null;
+        state.data.guests = guests ?? null;
+      } else {
+        state.data = initialState.data;
+      }
+
+      state.show = true;
     },
     clearCurrentEvent: (state) => {
-      state.id = null;
-      state.title = null;
-      state.creator = null;
-      state.start = null;
-      state.duration = null;
-      state.guests = [];
+      state.data.id = null;
+      state.data.title = null;
+      state.data.creator = null;
+      state.data.start = null;
+      state.data.duration = null;
+      state.data.guests = [];
+
+      state.show = false;
     },
   },
 });
