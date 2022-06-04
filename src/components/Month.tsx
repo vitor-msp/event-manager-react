@@ -100,7 +100,7 @@ export const Month = () => {
 
   return (
     <div>
-      <p>hello month: {currentDate.getMonth()}</p>
+      <p>hello month: {currentDate.getMonth() + 1}</p>
       <button onClick={handleDecrementMonth}>{`<<`}</button>
       <button onClick={handleIncrementMonth}>{`>>`}</button>
       <div>
