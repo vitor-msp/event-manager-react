@@ -127,6 +127,7 @@ export const Event: React.FC<EventType> = (props) => {
       <span>{`title `}</span>
       <input
         type={"text"}
+        disabled={!canEdit}
         value={currentEvent.title ?? ""}
         name={"title"}
         onChange={handleChange}
@@ -136,6 +137,7 @@ export const Event: React.FC<EventType> = (props) => {
       <span>{`start `}</span>
       <input
         type={"datetime-local"}
+        disabled={!canEdit}
         value={formatDate(currentEvent.start!)}
         name={"start"}
         onChange={handleChangeStart}
@@ -146,6 +148,7 @@ export const Event: React.FC<EventType> = (props) => {
       <input
         type={"number"}
         min={0}
+        disabled={!canEdit}
         value={currentEvent.duration ?? ""}
         name={"duration"}
         onChange={handleChange}
