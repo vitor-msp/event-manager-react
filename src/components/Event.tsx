@@ -13,6 +13,7 @@ import {
 } from "../store/ducks/eventsCalendar/eventsCalendar.middleware";
 import { IEvent } from "../store/ducks/eventsCalendar/eventsCalendar.types";
 import { AppDispatch } from "../store/store";
+import { GuestsList } from "./GuestsList";
 
 export type EventType = {
   event: IShowEvent;
@@ -156,15 +157,7 @@ export const Event: React.FC<EventType> = (props) => {
 
       <br />
       <span>{`guests `}</span>
-      {currentEvent.guests!.length > 0 &&
-        currentEvent.guests!.map((g) => {
-          return (
-            <div>
-              <span>user {g.user}</span>
-              <span> permission {g.permission}</span>
-            </div>
-          );
-        })}
+      <GuestsList guests={currentEvent.guests!} />
 
       <br />
       {props.event.isAddition && <button onClick={handleAddEvent}>add</button>}
