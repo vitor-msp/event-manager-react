@@ -104,3 +104,19 @@ export const putEventRequest =
       //   dispatch(postGraphFailure());
     }
   };
+
+export const exitEventRequest =
+  (event: IEvent): AppThunk =>
+  async (dispatch) => {
+    try {
+      // simulate request;
+      const res = {
+        data: event,
+      };
+
+      dispatch(removeEvent(res.data));
+    } catch (error) {
+      alert("Error in exit event");
+      //   dispatch(postGraphFailure());
+    }
+  };
