@@ -9,7 +9,7 @@ import {
   cancelEventRequest,
   editEventRequest,
   exitEventRequest,
-  postEventRequest,
+  addEventRequest,
 } from "../store/ducks/eventsCalendar/eventsCalendar.middleware";
 import { IEvent } from "../store/ducks/eventsCalendar/eventsCalendar.types";
 import { AppDispatch } from "../store/store";
@@ -51,22 +51,33 @@ export const Event: React.FC<EventType> = (props) => {
     return date.toISOString().substring(0, 16);
   };
 
-  const addEvent = async (): Promise<void> => {
+  const handleAddEvent = async (): Promise<void> => {
     const eventToPost = copyEvent(currentEvent);
 
-    await dispatch(postEventRequest(eventToPost));
+    await dispatch(addEventRequest(eventToPost));
   };
 
-  const exitEvent = async (): Promise<void> => {
+  const handleExitEvent = async (): Promise<void> => {
     const eventToExit = copyEvent(props.event.data!);
 
     await dispatch(exitEventRequest(eventToExit));
   };
 
-  const cancelEvent = async (): Promise<void> => {
+  const handleCancelEvent = async (): Promise<void> => {
     const eventToCancel = copyEvent(props.event.data!);
 
     await dispatch(cancelEventRequest(eventToCancel));
+  };
+
+  const handleEditEvent = async (): Promise<void> => {
+    const eventToEdit = copyEvent(currentEvent);
+
+    await dispatch(
+      editEventRequest({
+        oldStart: props.event.data!.start!,
+        editedEvent: eventToEdit,
+      })
+    );
   };
 
   const copyEvent = (event: ICurrentEvent): IEvent => {
@@ -80,17 +91,6 @@ export const Event: React.FC<EventType> = (props) => {
       start: start!,
       title: title!,
     };
-  };
-
-  const editEvent = async (): Promise<void> => {
-    const eventToEdit = copyEvent(currentEvent);
-
-    await dispatch(
-      editEventRequest({
-        oldStart: props.event.data!.start!,
-        editedEvent: eventToEdit,
-      })
-    );
   };
 
   return (
@@ -145,21 +145,21 @@ export const Event: React.FC<EventType> = (props) => {
         })}
 
       <br />
-      {props.event.isAddition && <button onClick={addEvent}>add</button>}
+      {props.event.isAddition && <button onClick={handleAddEvent}>add</button>}
 
       <br />
       {!props.event.isAddition && (
-        <button onClick={exitEvent}>exit of the event</button>
+        <button onClick={handleExitEvent}>exit of the event</button>
       )}
 
       <br />
       {!props.event.isAddition && props.event.data!.creator === 1 && (
-        <button onClick={cancelEvent}>cancel event</button>
+        <button onClick={handleCancelEvent}>cancel event</button>
       )}
 
       <br />
       {!props.event.isAddition && props.event.data!.creator === 1 && (
-        <button onClick={editEvent}>edit event</button>
+        <button onClick={handleEditEvent}>edit event</button>
       )}
     </div>
   );

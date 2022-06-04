@@ -14,8 +14,6 @@ import {
 } from "../store/ducks/currentEvent/currentEvent.slice";
 import {
   getEventsRequest,
-  postEventRequest,
-  // putEventRequest,
 } from "../store/ducks/eventsCalendar/eventsCalendar.middleware";
 import { getUsersRequest } from "../store/ducks/users/users.middleware";
 import {

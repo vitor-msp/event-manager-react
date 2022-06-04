@@ -57,7 +57,7 @@ export const getEventsRequest =
     }
   };
 
-export const postEventRequest =
+export const addEventRequest =
   (event: IEvent): AppThunk =>
   async (dispatch) => {
     try {
