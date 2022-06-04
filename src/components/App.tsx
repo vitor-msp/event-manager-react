@@ -18,6 +18,10 @@ import {
   postEventRequest,
   putEventRequest,
 } from "../store/ducks/eventsCalendar/eventsCalendar.middleware";
+import {
+  setViewDay,
+  setViewMonth,
+} from "../store/ducks/viewMode/viewMode.slice";
 import { AppDispatch, RootState } from "../store/store";
 
 function App() {
@@ -25,23 +29,16 @@ function App() {
   //   (state: RootState) => state.eventsCalendar.data.years
   // );
   // const currentEvent = useSelector((state: RootState) => state.currentEvent);
-  const currentDate = useSelector(
-    (state: RootState) => state.currentDate.currentDate
-  );
+  // const currentDate = useSelector(
+  //   (state: RootState) => state.currentDate.currentDate
+  // );
+  const viewMode = useSelector((state: RootState) => state.viewMode.type);
   const dispatch = useDispatch<AppDispatch>();
   const [count, setCount] = useState(1);
 
-  // useEffect(() => {
-  //   console.log(years);
-  // }, [years]);
-
-  // useEffect(() => {
-  //   console.log(currentEvent);
-  // }, [currentEvent]);
-
   useEffect(() => {
-    console.log(currentDate.toString());
-  }, [currentDate]);
+    console.log(viewMode);
+  }, [viewMode]);
 
   const getEvents = () => {
     console.log(count);
@@ -157,6 +154,14 @@ function App() {
     dispatch(decrementDay());
   };
 
+  const viewMonth = () => {
+    dispatch(setViewMonth());
+  };
+
+  const viewDay = () => {
+    dispatch(setViewDay());
+  };
+
   return (
     <div>
       <p>hello event manager</p>
@@ -174,6 +179,9 @@ function App() {
       <hr />
       <button onClick={incDay}>increment Day</button>
       <button onClick={decDay}>decrement Day</button>
+      <hr />
+      <button onClick={viewMonth}>view Month</button>
+      <button onClick={viewDay}>view Day</button>
     </div>
   );
 }
