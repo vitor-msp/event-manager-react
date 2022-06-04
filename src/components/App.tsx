@@ -24,6 +24,7 @@ import {
   setViewMonth,
 } from "../store/ducks/viewMode/viewMode.slice";
 import { AppDispatch, RootState } from "../store/store";
+import { Day } from "./Day";
 import { Month } from "./Month";
 
 function App() {
@@ -172,7 +173,8 @@ function App() {
   return (
     <div>
       <p>hello event manager</p>
-      <Month/>
+      <Day />
+      {/* <Month/> */}
       <hr />
       <button onClick={getEvents}>get events</button>
       <button onClick={editEventData}>edit event data</button>
