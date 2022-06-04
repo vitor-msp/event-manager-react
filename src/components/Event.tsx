@@ -164,7 +164,11 @@ export const Event: React.FC<EventType> = (props) => {
 
       <br />
       <span>{`guests `}</span>
-      <GuestsList guests={currentEvent.guests!} onChange={handleChangeGuests} />
+      <GuestsList
+        guests={currentEvent.guests!}
+        canEdit={canEdit}
+        onChange={handleChangeGuests}
+      />
 
       <br />
       {props.event.isAddition && <button onClick={handleAddEvent}>add</button>}

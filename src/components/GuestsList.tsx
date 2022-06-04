@@ -5,6 +5,7 @@ import { AppDispatch } from "../store/store";
 
 export type GuestsType = {
   guests: IGuest[];
+  canEdit: boolean;
   onChange: (guests: IGuest[]) => void;
 };
 
