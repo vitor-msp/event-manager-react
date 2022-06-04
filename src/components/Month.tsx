@@ -14,7 +14,9 @@ export const Month = () => {
   const currentDate = useSelector(
     (state: RootState) => state.currentDate.currentDate
   );
-  const monthUpdated = useSelector((state: RootState) => state.eventsCalendar.counter);
+  const monthUpdated = useSelector(
+    (state: RootState) => state.eventsCalendar.counter
+  );
   const years = useSelector(
     (state: RootState) => state.eventsCalendar.data.years
   );
@@ -22,6 +24,10 @@ export const Month = () => {
   const [daysRender, setDaysRender] = useState<any>([]);
 
   const populateDays = (currentDate: Date, days?: IDay[]) => {
+    while (daysComponents.length > 0) {
+      daysComponents.pop();
+    }
+
     let counterDay = 1;
 
     days?.map((d) => {

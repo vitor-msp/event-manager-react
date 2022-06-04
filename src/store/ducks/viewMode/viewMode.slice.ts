@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { IViewMode, ViewType } from "./viewMode.types";
 
 const initialState: IViewMode = {
-  type: ViewType.month,
+  type: ViewType.day,
 };
 
 const viewModeSlice = createSlice({

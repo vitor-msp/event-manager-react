@@ -9,6 +9,7 @@ import {
   IDay,
   IMonth,
 } from "../store/ducks/eventsCalendar/eventsCalendar.types";
+import { setViewMonth } from "../store/ducks/viewMode/viewMode.slice";
 import { AppDispatch, RootState } from "../store/store";
 
 export const Day = () => {
@@ -71,10 +72,15 @@ export const Day = () => {
   const handleDecrementDay = () => {
     dispatch(decrementDay());
   };
+  
+  const handleViewMonth = () => {
+    dispatch(setViewMonth());
+  };
 
   return (
     <div>
       <p>hello day: {currentDate.getDate()}</p>
+      <button onClick={handleViewMonth}>view month</button>
       <button onClick={handleDecrementDay}>{`<<`}</button>
       <button onClick={handleIncrementDay}>{`>>`}</button>
       <div>
