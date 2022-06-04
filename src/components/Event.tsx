@@ -7,6 +7,7 @@ import {
 } from "../store/ducks/currentEvent/currentEvent.types";
 import {
   cancelEventRequest,
+  editEventRequest,
   exitEventRequest,
   postEventRequest,
 } from "../store/ducks/eventsCalendar/eventsCalendar.middleware";
@@ -81,6 +82,17 @@ export const Event: React.FC<EventType> = (props) => {
     };
   };
 
+  const editEvent = async (): Promise<void> => {
+    const eventToEdit = copyEvent(currentEvent);
+
+    await dispatch(
+      editEventRequest({
+        oldStart: props.event.data!.start!,
+        editedEvent: eventToEdit,
+      })
+    );
+  };
+
   return (
     <div onClick={() => {}}>
       <button onClick={handleCloseEvent}>X</button>
@@ -143,6 +155,11 @@ export const Event: React.FC<EventType> = (props) => {
       <br />
       {!props.event.isAddition && props.event.data!.creator === 1 && (
         <button onClick={cancelEvent}>cancel event</button>
+      )}
+
+      <br />
+      {!props.event.isAddition && props.event.data!.creator === 1 && (
+        <button onClick={editEvent}>edit event</button>
       )}
     </div>
   );

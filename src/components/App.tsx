@@ -15,7 +15,7 @@ import {
 import {
   getEventsRequest,
   postEventRequest,
-  putEventRequest,
+  // putEventRequest,
 } from "../store/ducks/eventsCalendar/eventsCalendar.middleware";
 import { getUsersRequest } from "../store/ducks/users/users.middleware";
 import {
@@ -54,23 +54,23 @@ function App() {
   };
 
   const editEventData = () => {
-    const date = new Date();
-    dispatch(
-      putEventRequest({
-        oldStart: date,
-        editedEvent: {
-          id: 1,
-          creator: 1,
-          title: "Event 1 Edited",
-          start: date,
-          duration: 0,
-          guests: [
-            { user: 2, permission: "Editor" },
-            { user: 3, permission: "Viewer" },
-          ],
-        },
-      })
-    );
+    // const date = new Date();
+    // dispatch(
+    //   putEventRequest({
+    //     oldStart: date,
+    //     editedEvent: {
+    //       id: 1,
+    //       creator: 1,
+    //       title: "Event 1 Edited",
+    //       start: date,
+    //       duration: 0,
+    //       guests: [
+    //         { user: 2, permission: "Editor" },
+    //         { user: 3, permission: "Viewer" },
+    //       ],
+    //     },
+    //   })
+    // );
   };
 
   const addEvent = () => {
@@ -110,22 +110,22 @@ function App() {
   };
 
   const editEventStart = () => {
-    dispatch(
-      putEventRequest({
-        oldStart: new Date(),
-        editedEvent: {
-          id: 1,
-          creator: 1,
-          title: "Event 1 Start Edited",
-          start: new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000),
-          duration: 0,
-          guests: [
-            { user: 2, permission: "Editor" },
-            { user: 3, permission: "Viewer" },
-          ],
-        },
-      })
-    );
+    // dispatch(
+    //   putEventRequest({
+    //     oldStart: new Date(),
+    //     editedEvent: {
+    //       id: 1,
+    //       creator: 1,
+    //       title: "Event 1 Start Edited",
+    //       start: new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000),
+    //       duration: 0,
+    //       guests: [
+    //         { user: 2, permission: "Editor" },
+    //         { user: 3, permission: "Viewer" },
+    //       ],
+    //     },
+    //   })
+    // );
   };
 
   const callModal = () => {

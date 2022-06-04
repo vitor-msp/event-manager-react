@@ -89,7 +89,7 @@ export const cancelEventRequest =
     }
   };
 
-export const putEventRequest =
+export const editEventRequest =
   (event: IEditEvent): AppThunk =>
   async (dispatch) => {
     try {
