@@ -11,7 +11,10 @@ import {
   exitEventRequest,
   addEventRequest,
 } from "../store/ducks/eventsCalendar/eventsCalendar.middleware";
-import { IEvent } from "../store/ducks/eventsCalendar/eventsCalendar.types";
+import {
+  IEvent,
+  IGuest,
+} from "../store/ducks/eventsCalendar/eventsCalendar.types";
 import { AppDispatch } from "../store/store";
 import { GuestsList } from "./GuestsList";
 
@@ -65,6 +68,10 @@ export const Event: React.FC<EventType> = (props) => {
       ...currentEvent,
       start: new Date(e.target.value),
     });
+  };
+
+  const handleChangeGuests = (guests: IGuest[]): void => {
+    setCurrentEvent({ ...currentEvent, guests });
   };
 
   const formatDate = (date: Date): string => {
@@ -157,7 +164,7 @@ export const Event: React.FC<EventType> = (props) => {
 
       <br />
       <span>{`guests `}</span>
-      <GuestsList guests={currentEvent.guests!} />
+      <GuestsList guests={currentEvent.guests!} onChange={handleChangeGuests} />
 
       <br />
       {props.event.isAddition && <button onClick={handleAddEvent}>add</button>}

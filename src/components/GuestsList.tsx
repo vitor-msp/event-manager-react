@@ -1,27 +1,28 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { setCurrentEvent } from "../store/ducks/currentEvent/currentEvent.slice";
-import {
-  IEvent,
-  IGuest,
-} from "../store/ducks/eventsCalendar/eventsCalendar.types";
+import { IGuest } from "../store/ducks/eventsCalendar/eventsCalendar.types";
 import { AppDispatch } from "../store/store";
 
 export type GuestsType = {
   guests: IGuest[];
+  onChange: (guests: IGuest[]) => void;
 };
 
 export const GuestsList: React.FC<GuestsType> = (props) => {
-  // const { title, start } = props.guests;
+  const { guests, onChange } = props;
 
   const dispatch = useDispatch<AppDispatch>();
 
+  const handleChange = () => {
+    onChange([]);
+  };
+
   return (
     <div>
-      {props.guests.length > 0 &&
-        props.guests.map((g) => {
+      {guests.length > 0 &&
+        guests.map((g) => {
           return (
-            <div>
+            <div key={g.user}>
               <span>user {g.user}</span>
               <span> permission {g.permission}</span>
             </div>
