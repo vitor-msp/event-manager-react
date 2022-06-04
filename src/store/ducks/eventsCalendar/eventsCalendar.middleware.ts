@@ -32,7 +32,16 @@ export const getEventsRequest =
           days: [
             {
               day: date.getDate(),
-              events: [],
+              events: [
+                {
+                  id: 1,
+                  creator: 1,
+                  title: "Event Test",
+                  start: date,
+                  duration: 0,
+                  guests: [],
+                },
+              ],
             },
           ],
         })

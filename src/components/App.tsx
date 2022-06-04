@@ -173,8 +173,8 @@ function App() {
   return (
     <div>
       <p>hello event manager</p>
-      {/* <Day /> */}
-      <Month/>
+      <Day />
+      {/* <Month/> */}
       <hr />
       <button onClick={getEvents}>get events</button>
       <button onClick={editEventData}>edit event data</button>
