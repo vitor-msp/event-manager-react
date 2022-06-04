@@ -51,39 +51,27 @@ export const Event: React.FC<EventType> = (props) => {
   };
 
   const addEvent = async (): Promise<void> => {
-    const { creator, duration, guests, id, start, title } = currentEvent;
-
-    const eventToPost: IEvent = {
-      creator: creator!,
-      duration: duration!,
-      guests: guests!,
-      id: id!,
-      start: start!,
-      title: title!,
-    };
+    const eventToPost = copyEvent(currentEvent);
 
     await dispatch(postEventRequest(eventToPost));
   };
 
   const exitEvent = async (): Promise<void> => {
-    const { creator, duration, guests, id, start, title } = props.event.data!;
-
-    const eventToExit: IEvent = {
-      creator: creator!,
-      duration: duration!,
-      guests: guests!,
-      id: id!,
-      start: start!,
-      title: title!,
-    };
+    const eventToExit = copyEvent(props.event.data!);
 
     await dispatch(exitEventRequest(eventToExit));
   };
 
   const cancelEvent = async (): Promise<void> => {
-    const { creator, duration, guests, id, start, title } = props.event.data!;
+    const eventToCancel = copyEvent(props.event.data!);
 
-    const eventToCancel: IEvent = {
+    await dispatch(cancelEventRequest(eventToCancel));
+  };
+
+  const copyEvent = (event: ICurrentEvent): IEvent => {
+    const { creator, duration, guests, id, start, title } = event;
+
+    return {
       creator: creator!,
       duration: duration!,
       guests: guests!,
@@ -91,8 +79,6 @@ export const Event: React.FC<EventType> = (props) => {
       start: start!,
       title: title!,
     };
-
-    await dispatch(cancelEventRequest(eventToCancel));
   };
 
   return (
