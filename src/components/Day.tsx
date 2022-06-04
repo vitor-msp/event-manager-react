@@ -11,6 +11,7 @@ import {
 } from "../store/ducks/eventsCalendar/eventsCalendar.types";
 import { setViewMonth } from "../store/ducks/viewMode/viewMode.slice";
 import { AppDispatch, RootState } from "../store/store";
+import { EventMini } from "./EventMini";
 
 export const Day = () => {
   const [day, setDay] = useState<IDay | null>(null);
@@ -59,10 +60,6 @@ export const Day = () => {
       ?.months.find((m) => m.month === currentDate.getMonth());
   };
 
-  const getFormattedTime = (time: Date): string => {
-    return `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`;
-  };
-
   const dispatch = useDispatch<AppDispatch>();
 
   const handleIncrementDay = () => {
@@ -72,7 +69,7 @@ export const Day = () => {
   const handleDecrementDay = () => {
     dispatch(decrementDay());
   };
-  
+
   const handleViewMonth = () => {
     dispatch(setViewMonth());
   };
@@ -86,10 +83,7 @@ export const Day = () => {
       <div>
         {day?.events?.map((e) => {
           return (
-            <div key={e.id}>
-              <span> {`${e.title} ${getFormattedTime(e.start)}`}</span>
-              <br />
-            </div>
+            <EventMini key={e.id} event={e} />
           );
         })}
       </div>

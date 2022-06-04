@@ -26,6 +26,7 @@ import {
 import { ViewType } from "../store/ducks/viewMode/viewMode.types";
 import { AppDispatch, RootState } from "../store/store";
 import { Day } from "./Day";
+import { Event } from "./Event";
 import { Month } from "./Month";
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
   // const viewMode = useSelector((state: RootState) => state.viewMode.type);
   // const users = useSelector((state: RootState) => state.users.data.users);
   const viewMode = useSelector((state: RootState) => state.viewMode.type);
+  const currentEvent = useSelector((state: RootState) => state.currentEvent);
   const dispatch = useDispatch<AppDispatch>();
   const [count, setCount] = useState(1);
 
@@ -177,6 +179,8 @@ function App() {
       <p>hello event manager</p>
       {viewMode === ViewType.day && <Day />}
       {viewMode === ViewType.month && <Month />}
+      <hr />
+      {currentEvent.id && <Event event={currentEvent}/>}
       <hr />
       <button onClick={getEvents}>get events</button>
       <button onClick={editEventData}>edit event data</button>
