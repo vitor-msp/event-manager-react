@@ -23,9 +23,24 @@ const currentDateSlice = createSlice({
 
       state.currentDate = newCurrentDate;
     },
+    incrementDay: (state) => {
+      const newCurrentDate = new Date(state.currentDate.getTime());
+
+      newCurrentDate.setDate(newCurrentDate.getDate() + 1);
+
+      state.currentDate = newCurrentDate;
+    },
+    decrementDay: (state) => {
+      const newCurrentDate = new Date(state.currentDate.getTime());
+
+      newCurrentDate.setDate(newCurrentDate.getDate() - 1);
+
+      state.currentDate = newCurrentDate;
+    },
   },
 });
 
-export const { decrementMonth, incrementMonth } = currentDateSlice.actions;
+export const { decrementMonth, incrementMonth, decrementDay, incrementDay } =
+  currentDateSlice.actions;
 
 export const currentDateReducer = currentDateSlice.reducer;

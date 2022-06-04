@@ -3,7 +3,9 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import {
+  decrementDay,
   decrementMonth,
+  incrementDay,
   incrementMonth,
 } from "../store/ducks/currentDate/currentDate.slice";
 import {
@@ -147,6 +149,14 @@ function App() {
     dispatch(decrementMonth());
   };
 
+  const incDay = () => {
+    dispatch(incrementDay());
+  };
+
+  const decDay = () => {
+    dispatch(decrementDay());
+  };
+
   return (
     <div>
       <p>hello event manager</p>
@@ -161,6 +171,9 @@ function App() {
       <hr />
       <button onClick={incMonth}>increment month</button>
       <button onClick={decMonth}>decrement month</button>
+      <hr />
+      <button onClick={incDay}>increment Day</button>
+      <button onClick={decDay}>decrement Day</button>
     </div>
   );
 }
