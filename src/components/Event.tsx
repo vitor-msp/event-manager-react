@@ -93,6 +93,19 @@ export const Event: React.FC<EventType> = (props) => {
     };
   };
 
+  const canEdit = (): boolean => {
+    if (props.event.data!.creator === 1) return true;
+
+    if (
+      props.event.data!.guests?.find(
+        (g) => g.user === 1 && g.permission === "Editor"
+      )
+    )
+      return true;
+
+    return false;
+  };
+
   return (
     <div onClick={() => {}}>
       <button onClick={handleCloseEvent}>X</button>
@@ -158,7 +171,7 @@ export const Event: React.FC<EventType> = (props) => {
       )}
 
       <br />
-      {!props.event.isAddition && props.event.data!.creator === 1 && (
+      {!props.event.isAddition && canEdit() && (
         <button onClick={handleEditEvent}>edit event</button>
       )}
     </div>
