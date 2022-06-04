@@ -5,7 +5,7 @@ const initialState: ICurrentEventState = {
   data: {
     id: null,
     title: null,
-    creator: null,
+    creator: 1,
     start: null,
     duration: null,
     guests: [],

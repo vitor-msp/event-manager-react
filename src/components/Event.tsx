@@ -1,16 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { clearCurrentEvent } from "../store/ducks/currentEvent/currentEvent.slice";
-import { ICurrentEvent } from "../store/ducks/currentEvent/currentEvent.types";
+import {
+  ICurrentEvent,
+  IShowEvent,
+} from "../store/ducks/currentEvent/currentEvent.types";
+import { IEvent } from "../store/ducks/eventsCalendar/eventsCalendar.types";
 import { AppDispatch } from "../store/store";
 import { getFormattedTime } from "./EventMini";
 
 export type EventType = {
-  event: ICurrentEvent;
+  event: IShowEvent;
 };
 
 export const Event: React.FC<EventType> = (props) => {
-  const { id, creator, duration, guests, start, title } = props.event;
+  const { id, creator, duration, guests, start, title } = props.event.data!;
+
+  const [currentEvent, setCurrentEvent] = useState<ICurrentEvent>({
+    id,
+    creator,
+    duration,
+    guests,
+    start,
+    title,
+  });
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -18,28 +31,68 @@ export const Event: React.FC<EventType> = (props) => {
     dispatch(clearCurrentEvent());
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCurrentEvent({ ...currentEvent, [e.target.name]: e.target.value });
+  };
+
+  const handleChangeStart = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCurrentEvent({
+      ...currentEvent,
+      start: new Date(e.target.value),
+    });
+  };
+
+  const formatDate = (date: Date) => {
+    return date.toISOString().substring(0, 16);
+  };
+
   return (
     <div onClick={() => {}}>
       <button onClick={handleCloseEvent}>X</button>
       <br />
       <span>{`id `}</span>
-      <input type={"text"} value={id ?? ""} />
+      <input type={"text"} value={currentEvent.id ?? ""} disabled={true} />
+
       <br />
       <span>{`creator `}</span>
-      <input type={"text"} value={creator ?? ""} />
+      <input type={"text"} value={currentEvent.creator ?? ""} disabled={true} />
+
       <br />
       <span>{`title `}</span>
-      <input type={"text"} value={title ?? ""} />
+      <input
+        type={"text"}
+        value={currentEvent.title ?? ""}
+        name={"title"}
+        onChange={handleChange}
+      />
+
       <br />
       <span>{`start `}</span>
-      <input type={"text"} value={start ? getFormattedTime(start) : ""} />
+      <input
+        type={"datetime-local"}
+        value={
+          currentEvent.start
+            ? formatDate(currentEvent.start)
+            : formatDate(new Date())
+        }
+        name={"start"}
+        onChange={handleChangeStart}
+      />
+
       <br />
       <span>{`duration `}</span>
-      <input type={"text"} value={duration ?? ""} />
+      <input
+        type={"number"}
+        min={0}
+        value={currentEvent.duration ?? ""}
+        name={"duration"}
+        onChange={handleChange}
+      />
+
       <br />
       <span>{`guests `}</span>
-      {guests!.length > 0 &&
-        guests!.map((g) => {
+      {currentEvent.guests!.length > 0 &&
+        currentEvent.guests!.map((g) => {
           return (
             <div>
               <span>user {g.user}</span>

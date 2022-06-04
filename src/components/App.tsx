@@ -182,10 +182,10 @@ function App() {
       <p>hello event manager</p>
       <button onClick={addEvent}>add event</button>
       <hr />
+      {currentEvent.show && <Event event={currentEvent} />}
+      <hr />
       {viewMode === ViewType.day && <Day />}
       {viewMode === ViewType.month && <Month />}
-      <hr />
-      {currentEvent.show && <Event event={currentEvent.data} />}
       <hr />
       <button onClick={getEvents}>get events</button>
       <button onClick={editEventData}>edit event data</button>
