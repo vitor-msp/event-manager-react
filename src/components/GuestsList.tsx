@@ -14,7 +14,9 @@ export const GuestsList: React.FC<GuestsType> = (props) => {
 
   const dispatch = useDispatch<AppDispatch>();
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
+  const handleChangePermission = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ): void => {
     const [user, permission] = e.target.value.split("-");
     const userId = +user;
 
@@ -31,6 +33,12 @@ export const GuestsList: React.FC<GuestsType> = (props) => {
     onChange([...newGuests]);
   };
 
+  const handleDeleteGuest = (user: number): void => {
+    const newGuests = guests.filter((g) => g.user !== user);
+
+    onChange([...newGuests]);
+  };
+
   return (
     <div>
       {guests.length > 0 &&
@@ -41,11 +49,12 @@ export const GuestsList: React.FC<GuestsType> = (props) => {
               <span> permission </span>
               <select
                 defaultValue={`${g.user}-${g.permission}`}
-                onChange={handleChange}
+                onChange={handleChangePermission}
               >
                 <option value={`${g.user}-Viewer`}>Viewer</option>
                 <option value={`${g.user}-Editor`}>Editor</option>
               </select>
+              <span onClick={() => handleDeleteGuest(g.user)}> X </span>
             </div>
           );
         })}
