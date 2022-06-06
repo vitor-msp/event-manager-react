@@ -12,8 +12,10 @@ export type GuestsType = {
 export const GuestsList: React.FC<GuestsType> = (props) => {
   const { guests, onChange } = props;
   const users = useSelector((state: RootState) => state.users.data.users);
+  const currentUser = useSelector((state: RootState) => state.currentUser);
   const usersToShow = users.filter(
-    (u) => u.id !== 1 && guests.findIndex((g) => g.user === u.id) === -1
+    (u) =>
+      u.id !== currentUser.id && guests.findIndex((g) => g.user === u.id) === -1
   );
 
   const dispatch = useDispatch<AppDispatch>();

@@ -35,16 +35,16 @@ function App() {
   // );
   // const viewMode = useSelector((state: RootState) => state.viewMode.type);
   // const users = useSelector((state: RootState) => state.users.data.users);
-  const currentUser = useSelector((state: RootState) => state.currentUser);
+  // const currentUser = useSelector((state: RootState) => state.currentUser);
 
   const viewMode = useSelector((state: RootState) => state.viewMode.type);
   const currentEvent = useSelector((state: RootState) => state.currentEvent);
   const dispatch = useDispatch<AppDispatch>();
   const [count, setCount] = useState(1);
 
-  useEffect(() => {
-    console.log(currentUser);
-  }, [currentUser]);
+  // useEffect(() => {
+  //   console.log(currentUser);
+  // }, [currentUser]);
 
   const getEvents = () => {
     console.log(count);
