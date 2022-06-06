@@ -14,8 +14,21 @@ export const GuestsList: React.FC<GuestsType> = (props) => {
 
   const dispatch = useDispatch<AppDispatch>();
 
-  const handleChange = () => {
-    onChange([]);
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
+    const [user, permission] = e.target.value.split("-");
+    const userId = +user;
+
+    let newGuests: IGuest[] = Object.assign([], guests);
+    const index = newGuests.findIndex((g) => g.user === userId);
+
+    if (index === -1) return;
+
+    newGuests[index] = {
+      user: userId,
+      permission,
+    };
+
+    onChange([...newGuests]);
   };
 
   return (
@@ -25,7 +38,14 @@ export const GuestsList: React.FC<GuestsType> = (props) => {
           return (
             <div key={g.user}>
               <span>user {g.user}</span>
-              <span> permission {g.permission}</span>
+              <span> permission </span>
+              <select
+                defaultValue={`${g.user}-${g.permission}`}
+                onChange={handleChange}
+              >
+                <option value={`${g.user}-Viewer`}>Viewer</option>
+                <option value={`${g.user}-Editor`}>Editor</option>
+              </select>
             </div>
           );
         })}
