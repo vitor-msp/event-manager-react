@@ -12,9 +12,8 @@ import {
   clearCurrentEvent,
   setCurrentEvent,
 } from "../store/ducks/currentEvent/currentEvent.slice";
-import {
-  getEventsRequest,
-} from "../store/ducks/eventsCalendar/eventsCalendar.middleware";
+import { loginRequest } from "../store/ducks/currentUser/currentUser.middleware";
+import { getEventsRequest } from "../store/ducks/eventsCalendar/eventsCalendar.middleware";
 import { getUsersRequest } from "../store/ducks/users/users.middleware";
 import {
   setViewDay,
@@ -36,14 +35,16 @@ function App() {
   // );
   // const viewMode = useSelector((state: RootState) => state.viewMode.type);
   // const users = useSelector((state: RootState) => state.users.data.users);
+  const currentUser = useSelector((state: RootState) => state.currentUser);
+
   const viewMode = useSelector((state: RootState) => state.viewMode.type);
   const currentEvent = useSelector((state: RootState) => state.currentEvent);
   const dispatch = useDispatch<AppDispatch>();
   const [count, setCount] = useState(1);
 
-  // useEffect(() => {
-  //   console.log(years);
-  // }, [years]);
+  useEffect(() => {
+    console.log(currentUser);
+  }, [currentUser]);
 
   const getEvents = () => {
     console.log(count);
@@ -174,8 +175,13 @@ function App() {
     dispatch(getUsersRequest());
   };
 
+  const login = () => {
+    dispatch(loginRequest({ email: "a", password: "a" }));
+  };
+
   return (
     <div>
+      <button onClick={login}>login</button>
       <p>hello event manager</p>
       <button onClick={addEvent}>add event</button>
       <hr />

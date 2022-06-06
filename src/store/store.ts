@@ -2,6 +2,7 @@ import { configureStore, ThunkAction } from "@reduxjs/toolkit";
 import { AnyAction } from "redux";
 import { currentDateReducer } from "./ducks/currentDate/currentDate.slice";
 import { currentEventReducer } from "./ducks/currentEvent/currentEvent.slice";
+import { currentUserReducer } from "./ducks/currentUser/currentUser.slice";
 import { eventsCalendarReducer } from "./ducks/eventsCalendar/eventsCalendar.slice";
 import { usersReducer } from "./ducks/users/users.slice";
 import { viewModeReducer } from "./ducks/viewMode/viewMode.slice";
@@ -13,6 +14,7 @@ export const store = configureStore({
     currentDate: currentDateReducer,
     viewMode: viewModeReducer,
     users: usersReducer,
+    currentUser: currentUserReducer,
   },
 });
 
