@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { IGuest } from "../store/ducks/eventsCalendar/eventsCalendar.types";
 import { RootState } from "../store/store";
+import { GuestItem } from "./GuestItem";
 
 export type GuestsType = {
   guests: IGuest[];
@@ -70,23 +71,13 @@ export const GuestsList: React.FC<GuestsType> = (props) => {
       {guests.length > 0 &&
         guests.map((g) => {
           return (
-            <div key={g.user}>
-              <span>user {g.user}</span>
-
-              <span> permission </span>
-              <select
-                defaultValue={`${g.user}-${g.permission}`}
-                onChange={handleChangePermission}
-                disabled={!canEdit}
-              >
-                <option value={`${g.user}-Viewer`}>Viewer</option>
-                <option value={`${g.user}-Editor`}>Editor</option>
-              </select>
-
-              {canEdit && (
-                <span onClick={() => handleDeleteGuest(g.user)}> X </span>
-              )}
-            </div>
+            <GuestItem
+              key={g.user}
+              guest={g}
+              canEdit={canEdit}
+              onChangePermission={handleChangePermission}
+              onDeleteGuest={handleDeleteGuest}
+            />
           );
         })}
     </div>
