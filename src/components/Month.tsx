@@ -100,9 +100,28 @@ export const Month = () => {
 
   return (
     <div>
-      <p>hello month: {currentDate.getMonth() + 1}</p>
-      <button onClick={handleDecrementMonth}>{`<<`}</button>
-      <button onClick={handleIncrementMonth}>{`>>`}</button>
+      <div className="d-flex justify-content-center">
+        <h3 className="text-center text-primary mx-3">
+          {`${currentDate.toLocaleString("default", {
+            month: "long",
+          })} - ${currentDate.getFullYear()}`}
+        </h3>
+
+        <div className="mx-3">
+          <button
+            type="button"
+            onClick={handleDecrementMonth}
+            className="btn btn-outline-primary mx-1"
+          >{`<`}</button>
+
+          <button
+            type="button"
+            onClick={handleIncrementMonth}
+            className="btn btn-outline-primary mx-1"
+          >{`>`}</button>
+        </div>
+      </div>
+
       <div>
         {daysRender.map((day: any) => {
           return day;

@@ -187,8 +187,7 @@ function App() {
       <hr />
       {currentEvent.show && <Event event={currentEvent} />}
       <hr />
-      {viewMode === ViewType.day && <Day />}
-      {viewMode === ViewType.month && <Month />}
+
       <hr />
       <button onClick={getEvents}>get events</button>
       <button onClick={editEventData}>edit event data</button>
