@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { clearCurrentEvent } from "../store/ducks/currentEvent/currentEvent.slice";
 import {
   ICurrentEvent,
@@ -15,7 +15,7 @@ import {
   IEvent,
   IGuest,
 } from "../store/ducks/eventsCalendar/eventsCalendar.types";
-import { AppDispatch } from "../store/store";
+import { AppDispatch, RootState } from "../store/store";
 import { GuestsList } from "./GuestsList";
 
 export type EventType = {
@@ -25,6 +25,7 @@ export type EventType = {
 export const Event: React.FC<EventType> = (props) => {
   const { id, creator, duration, guests, start, title } = props.event.data!;
   const [canEdit, setCanEdit] = useState<boolean>(false);
+  const currentUser = useSelector((state: RootState) => state.currentUser);
   const [currentEvent, setCurrentEvent] = useState<ICurrentEvent>({
     id,
     creator,
@@ -36,14 +37,14 @@ export const Event: React.FC<EventType> = (props) => {
 
   useEffect(() => {
     (() => {
-      if (props.event.data!.creator === 1) {
+      if (props.event.data!.creator === currentUser.id) {
         setCanEdit(true);
         return;
       }
 
       if (
         props.event.data!.guests?.find(
-          (g) => g.user === 1 && g.permission === "Editor"
+          (g) => g.user === currentUser.id && g.permission === "Editor"
         )
       ) {
         setCanEdit(true);
