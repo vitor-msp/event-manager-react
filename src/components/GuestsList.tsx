@@ -1,7 +1,7 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { IGuest } from "../store/ducks/eventsCalendar/eventsCalendar.types";
-import { AppDispatch, RootState } from "../store/store";
+import { RootState } from "../store/store";
 
 export type GuestsType = {
   guests: IGuest[];
@@ -10,15 +10,13 @@ export type GuestsType = {
 };
 
 export const GuestsList: React.FC<GuestsType> = (props) => {
-  const { guests, onChange } = props;
+  const { guests, onChange, canEdit } = props;
   const users = useSelector((state: RootState) => state.users.data.users);
   const currentUser = useSelector((state: RootState) => state.currentUser);
   const usersToShow = users.filter(
     (u) =>
       u.id !== currentUser.id && guests.findIndex((g) => g.user === u.id) === -1
   );
-
-  const dispatch = useDispatch<AppDispatch>();
 
   const handleChangePermission = (
     e: React.ChangeEvent<HTMLSelectElement>
@@ -56,16 +54,18 @@ export const GuestsList: React.FC<GuestsType> = (props) => {
 
   return (
     <div>
-      <select onChange={handleAddGuest}>
-        <option>---</option>
-        {usersToShow.map((u) => {
-          return (
-            <option key={u.id} value={u.id}>
-              {u.email}
-            </option>
-          );
-        })}
-      </select>
+      {canEdit && (
+        <select onChange={handleAddGuest}>
+          <option>---</option>
+          {usersToShow.map((u) => {
+            return (
+              <option key={u.id} value={u.id}>
+                {u.email}
+              </option>
+            );
+          })}
+        </select>
+      )}
 
       {guests.length > 0 &&
         guests.map((g) => {
@@ -77,12 +77,15 @@ export const GuestsList: React.FC<GuestsType> = (props) => {
               <select
                 defaultValue={`${g.user}-${g.permission}`}
                 onChange={handleChangePermission}
+                disabled={!canEdit}
               >
                 <option value={`${g.user}-Viewer`}>Viewer</option>
                 <option value={`${g.user}-Editor`}>Editor</option>
               </select>
 
-              <span onClick={() => handleDeleteGuest(g.user)}> X </span>
+              {canEdit && (
+                <span onClick={() => handleDeleteGuest(g.user)}> X </span>
+              )}
             </div>
           );
         })}
