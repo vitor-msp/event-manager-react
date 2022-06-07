@@ -21,9 +21,13 @@ export const DayMini: React.FC<DayType> = (props) => {
   };
 
   return (
-    <div onClick={handleViewDay}>
-      <span>{`day ${day}: ${countEvents} events`}</span>
-      <br />
+    <div
+      style={{ width: "calc(100%/7)", height: "75px" }}
+      className="d-flex flex-column justify-content-center align-items-center border"
+      onClick={handleViewDay}
+    >
+      <span style={{ fontSize: "1.5em" }} className="">{`${day}`}</span>
+      <span>{`${countEvents} events`}</span>
     </div>
   );
 };

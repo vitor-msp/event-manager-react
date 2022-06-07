@@ -22,6 +22,15 @@ export const Month = () => {
   );
   const daysComponents: any[] = [];
   const [daysRender, setDaysRender] = useState<any>([]);
+  const [offsetEmptyDays, setOffsetEmptyDays] = useState<number>(0);
+
+  useEffect(() => {
+    const date = new Date();
+    date.setFullYear(currentDate.getFullYear());
+    date.setMonth(currentDate.getMonth());
+    date.setDate(1);
+    setOffsetEmptyDays(date.getDay());
+  }, [currentDate]);
 
   const populateDays = (currentDate: Date, days?: IDay[]) => {
     while (daysComponents.length > 0) {
@@ -99,7 +108,7 @@ export const Month = () => {
   };
 
   return (
-    <div>
+    <div className="">
       <div className="d-flex justify-content-center">
         <h3 className="text-center text-primary mx-3">
           {`${currentDate.toLocaleString("default", {
@@ -122,67 +131,58 @@ export const Month = () => {
         </div>
       </div>
 
-      <div className="d-flex my-3 text-center">
-        <div className="flex-fill border">Sunday</div>
-        <div className="flex-fill border">Monday</div>
-        <div className="flex-fill border">Tuesday</div>
-        <div className="flex-fill border">Wednesday</div>
-        <div className="flex-fill border">Thursday</div>
-        <div className="flex-fill border">Friday</div>
-        <div className="flex-fill border">Saturday</div>
-      </div>
+      <div className="d-flex my-3 text-center"></div>
 
-      <div className="d-flex flex-column m-0" style={{ height: "70vh" }}>
-          <div className="d-flex">
-            <div className="flex-fill border">Sunday</div>
-            <div className="flex-fill border">Monday</div>
-            <div className="flex-fill border">Tuesday</div>
-            <div className="flex-fill border">Wednesday</div>
-            <div className="flex-fill border">Thursday</div>
-            <div className="flex-fill border">Friday</div>
-            <div className="flex-fill border">Saturday</div>
-          </div>
-          <div className="d-flex">
-            <div className="flex-fill border">Sunday</div>
-            <div className="flex-fill border">Monday</div>
-            <div className="flex-fill border">Tuesday</div>
-            <div className="flex-fill border">Wednesday</div>
-            <div className="flex-fill border">Thursday</div>
-            <div className="flex-fill border">Friday</div>
-            <div className="flex-fill border">Saturday</div>
-          </div>
-          <div className="d-flex">
-            <div className="flex-fill border">Sunday</div>
-            <div className="flex-fill border">Monday</div>
-            <div className="flex-fill border">Tuesday</div>
-            <div className="flex-fill border">Wednesday</div>
-            <div className="flex-fill border">Thursday</div>
-            <div className="flex-fill border">Friday</div>
-            <div className="flex-fill border">Saturday</div>
-          </div>
-          <div className="d-flex">
-            <div className="flex-fill border">Sunday</div>
-            <div className="flex-fill border">Monday</div>
-            <div className="flex-fill border">Tuesday</div>
-            <div className="flex-fill border">Wednesday</div>
-            <div className="flex-fill border">Thursday</div>
-            <div className="flex-fill border">Friday</div>
-            <div className="flex-fill border">Saturday</div>
-          </div>
-          <div className="d-flex">
-            <div className="flex-fill border">Sunday</div>
-            <div className="flex-fill border">Monday</div>
-            <div className="flex-fill border">Tuesday</div>
-            <div className="flex-fill border">Wednesday</div>
-            <div className="flex-fill border">Thursday</div>
-            <div className="flex-fill border">Friday</div>
-            <div className="flex-fill border">Saturday</div>
-          </div>
-      </div>
+      <div style={{ position: "absolute" }} className="d-flex flex-wrap m-0">
+        <div
+          style={{ width: "calc(100%/7)" }}
+          className="text-center border my-2"
+        >
+          Sunday
+        </div>
+        <div
+          style={{ width: "calc(100%/7)" }}
+          className="text-center border my-2"
+        >
+          Monday
+        </div>
+        <div
+          style={{ width: "calc(100%/7)" }}
+          className="text-center border my-2"
+        >
+          Tuesday
+        </div>
+        <div
+          style={{ width: "calc(100%/7)" }}
+          className="text-center border my-2"
+        >
+          Wednesday
+        </div>
+        <div
+          style={{ width: "calc(100%/7)" }}
+          className="text-center border my-2"
+        >
+          Thursday
+        </div>
+        <div
+          style={{ width: "calc(100%/7)" }}
+          className="text-center border my-2"
+        >
+          Friday
+        </div>
+        <div
+          style={{ width: "calc(100%/7)" }}
+          className="text-center border my-2"
+        >
+          Saturday
+        </div>
 
-      {/* {daysRender.map((day: any) => {
+        <div style={{ width: `calc(100%/7 * ${offsetEmptyDays})` }}></div>
+
+        {daysRender.map((day: any) => {
           return day;
-        })} */}
+        })}
+      </div>
     </div>
   );
 };
