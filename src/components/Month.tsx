@@ -122,11 +122,67 @@ export const Month = () => {
         </div>
       </div>
 
-      <div>
-        {daysRender.map((day: any) => {
-          return day;
-        })}
+      <div className="d-flex my-3 text-center">
+        <div className="flex-fill border">Sunday</div>
+        <div className="flex-fill border">Monday</div>
+        <div className="flex-fill border">Tuesday</div>
+        <div className="flex-fill border">Wednesday</div>
+        <div className="flex-fill border">Thursday</div>
+        <div className="flex-fill border">Friday</div>
+        <div className="flex-fill border">Saturday</div>
       </div>
+
+      <div className="d-flex flex-column m-0" style={{ height: "70vh" }}>
+          <div className="d-flex">
+            <div className="flex-fill border">Sunday</div>
+            <div className="flex-fill border">Monday</div>
+            <div className="flex-fill border">Tuesday</div>
+            <div className="flex-fill border">Wednesday</div>
+            <div className="flex-fill border">Thursday</div>
+            <div className="flex-fill border">Friday</div>
+            <div className="flex-fill border">Saturday</div>
+          </div>
+          <div className="d-flex">
+            <div className="flex-fill border">Sunday</div>
+            <div className="flex-fill border">Monday</div>
+            <div className="flex-fill border">Tuesday</div>
+            <div className="flex-fill border">Wednesday</div>
+            <div className="flex-fill border">Thursday</div>
+            <div className="flex-fill border">Friday</div>
+            <div className="flex-fill border">Saturday</div>
+          </div>
+          <div className="d-flex">
+            <div className="flex-fill border">Sunday</div>
+            <div className="flex-fill border">Monday</div>
+            <div className="flex-fill border">Tuesday</div>
+            <div className="flex-fill border">Wednesday</div>
+            <div className="flex-fill border">Thursday</div>
+            <div className="flex-fill border">Friday</div>
+            <div className="flex-fill border">Saturday</div>
+          </div>
+          <div className="d-flex">
+            <div className="flex-fill border">Sunday</div>
+            <div className="flex-fill border">Monday</div>
+            <div className="flex-fill border">Tuesday</div>
+            <div className="flex-fill border">Wednesday</div>
+            <div className="flex-fill border">Thursday</div>
+            <div className="flex-fill border">Friday</div>
+            <div className="flex-fill border">Saturday</div>
+          </div>
+          <div className="d-flex">
+            <div className="flex-fill border">Sunday</div>
+            <div className="flex-fill border">Monday</div>
+            <div className="flex-fill border">Tuesday</div>
+            <div className="flex-fill border">Wednesday</div>
+            <div className="flex-fill border">Thursday</div>
+            <div className="flex-fill border">Friday</div>
+            <div className="flex-fill border">Saturday</div>
+          </div>
+      </div>
+
+      {/* {daysRender.map((day: any) => {
+          return day;
+        })} */}
     </div>
   );
 };
