@@ -76,15 +76,39 @@ export const Day = () => {
 
   return (
     <div>
-      <p>hello day: {currentDate.getDate()}</p>
-      <button onClick={handleViewMonth}>view month</button>
-      <button onClick={handleDecrementDay}>{`<<`}</button>
-      <button onClick={handleIncrementDay}>{`>>`}</button>
+      <div className="d-flex justify-content-center">
+        <button
+          type="button"
+          onClick={handleViewMonth}
+          className="btn btn-outline-primary mx-3"
+        >
+          {currentDate.toLocaleString("default", {
+            month: "long",
+          })}
+        </button>
+
+        <h3 className="text-center text-primary mx-3">
+          {currentDate.toUTCString().substring(0, 16)}
+        </h3>
+
+        <div className="mx-3">
+          <button
+            type="button"
+            onClick={handleDecrementDay}
+            className="btn btn-outline-primary mx-1"
+          >{`<`}</button>
+
+          <button
+            type="button"
+            onClick={handleIncrementDay}
+            className="btn btn-outline-primary mx-1"
+          >{`>`}</button>
+        </div>
+      </div>
+
       <div>
         {day?.events?.map((e) => {
-          return (
-            <EventMini key={e.id} event={e} />
-          );
+          return <EventMini key={e.id} event={e} />;
         })}
       </div>
     </div>
