@@ -35,8 +35,8 @@ function App() {
   // );
   // const viewMode = useSelector((state: RootState) => state.viewMode.type);
   // const users = useSelector((state: RootState) => state.users.data.users);
-  // const currentUser = useSelector((state: RootState) => state.currentUser);
 
+  const currentUser = useSelector((state: RootState) => state.currentUser);
   const viewMode = useSelector((state: RootState) => state.viewMode.type);
   const currentEvent = useSelector((state: RootState) => state.currentEvent);
   const dispatch = useDispatch<AppDispatch>();
@@ -73,7 +73,7 @@ function App() {
   };
 
   const addEvent = () => {
-    dispatch(setCurrentEvent({ isAddition: true }));
+    dispatch(setCurrentEvent({ isAddition: true, creator: currentUser.id! }));
   };
   // const addEvent = () => {
   //   dispatch(

@@ -14,6 +14,7 @@ export interface ICurrentEvent {
 export interface IShowEvent {
   isAddition: boolean;
   data?: ICurrentEvent;
+  creator?: number;
 }
 
 // state type

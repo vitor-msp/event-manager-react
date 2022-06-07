@@ -5,7 +5,7 @@ const initialState: ICurrentEventState = {
   data: {
     id: null,
     title: null,
-    creator: 1,
+    creator: null,
     start: null,
     duration: null,
     guests: [],
@@ -22,7 +22,10 @@ const currentEventSlice = createSlice({
       if (payload.isAddition) {
         state.isAddition = true;
 
-        state.data = initialState.data;
+        state.data = {
+          ...initialState.data,
+          creator: payload.creator!,
+        };
       } else {
         state.isAddition = false;
 
