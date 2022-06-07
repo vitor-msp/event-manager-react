@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { setCurrentDay } from "../store/ducks/currentDate/currentDate.slice";
 import { setViewDay } from "../store/ducks/viewMode/viewMode.slice";
 import { AppDispatch } from "../store/store";
+import "./DayMini.css";
 
 export type DayType = {
   day: number;
@@ -22,8 +23,8 @@ export const DayMini: React.FC<DayType> = (props) => {
 
   return (
     <div
-      style={{ width: "calc(100%/7)", height: "75px" }}
-      className="d-flex flex-column justify-content-center align-items-center border"
+      style={{ width: "calc(100%/7)", height: "75px", cursor: "pointer" }}
+      className="daymini d-flex flex-column justify-content-center align-items-center border"
       onClick={handleViewDay}
     >
       <span style={{ fontSize: "1.5em" }} className="">{`${day}`}</span>
