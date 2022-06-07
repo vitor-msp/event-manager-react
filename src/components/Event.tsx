@@ -26,6 +26,10 @@ export const Event: React.FC<EventType> = (props) => {
   const { id, creator, duration, guests, start, title } = props.event.data!;
   const [canEdit, setCanEdit] = useState<boolean>(false);
   const currentUser = useSelector((state: RootState) => state.currentUser);
+  const creatorEmail = useSelector((state: RootState) =>
+    state.users.data.users.find((u) => u.id === creator)
+  )?.email;
+
   const [currentEvent, setCurrentEvent] = useState<ICurrentEvent>({
     id,
     creator,
@@ -130,7 +134,7 @@ export const Event: React.FC<EventType> = (props) => {
 
       <br />
       <span>{`creator `}</span>
-      <input type={"text"} value={currentEvent.creator ?? ""} disabled={true} />
+      <input type={"email"} value={creatorEmail ?? ""} disabled={true} />
 
       <br />
       <span>{`title `}</span>
