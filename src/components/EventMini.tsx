@@ -27,7 +27,7 @@ export const EventMini: React.FC<EventType> = (props) => {
       style={{
         position: "absolute",
         left: "50px",
-        top: `calc(50px * ${start.getHours()} + 4px)`,
+        top: `calc(50px * ${start.getHours()} + 50px/60 * ${start.getMinutes()})`,
         minHeight: "30px",
         height: `calc(50px/60 * ${duration / 1000 / 60})`,
         width: "auto",
