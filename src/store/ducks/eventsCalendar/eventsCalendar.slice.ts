@@ -15,18 +15,63 @@ import {
 
 const currentDate = new Date();
 
+// const initialState: IEventsCalendarState = {
+//   data: {
+//     years: [
+//       // {
+//       //   year: currentDate.getFullYear(),
+//       //   months: [
+//       //     {
+//       //       month: currentDate.getMonth(),
+//       //       days: [],
+//       //     },
+//       //   ],
+//       // },
+//     ],
+//   },
+//   counter: 0,
+// };
+
 const initialState: IEventsCalendarState = {
   data: {
     years: [
-      // {
-      //   year: currentDate.getFullYear(),
-      //   months: [
-      //     {
-      //       month: currentDate.getMonth(),
-      //       days: [],
-      //     },
-      //   ],
-      // },
+      {
+        year: currentDate.getFullYear(),
+        months: [
+          {
+            month: currentDate.getMonth(),
+            days: [
+              {
+                day: currentDate.getDate(),
+                events: [
+                  {
+                    id: 1,
+                    creator: 1,
+                    title: "Event 1",
+                    start: currentDate,
+                    duration: 0,
+                    guests: [
+                      { user: 2, permission: "Editor" },
+                      { user: 3, permission: "Viewer" },
+                    ],
+                  },
+                  {
+                    id: 2,
+                    creator: 1,
+                    title: "Event 2",
+                    start: new Date(currentDate.getTime() + 60 * 60 * 1000),
+                    duration: 2 * 60 * 60 * 1000,
+                    guests: [
+                      { user: 2, permission: "Editor" },
+                      { user: 3, permission: "Viewer" },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
     ],
   },
   counter: 0,

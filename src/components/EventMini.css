@@ -1,0 +1,6 @@
+.eventmini {
+    background-color: rgba(13, 110, 253, 1);
+}
+.eventmini:hover {
+    background-color: rgba(13, 110, 253, 0.5);
+}

@@ -106,7 +106,29 @@ export const Day = () => {
         </div>
       </div>
 
-      <div>
+      <div
+        style={{ position: "relative", margin: "0px", height: "70vh" }}
+        className="d-flex flex-column my-3 w-100 border"
+      >
+        {[
+          0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+          20, 21, 22, 23, 24,
+        ].map((d) => {
+          return (
+            <div
+              style={{
+                position: "absolute",
+                top: `calc(50px * ${d})`,
+                height: "50px",
+                width: "50px",
+              }}
+              className="border"
+            >
+              <span className="text-secondary">{d} AM</span>
+            </div>
+          );
+        })}
+
         {day?.events?.map((e) => {
           return <EventMini key={e.id} event={e} />;
         })}
