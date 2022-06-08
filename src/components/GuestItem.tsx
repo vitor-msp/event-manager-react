@@ -1,4 +1,5 @@
 import React from "react";
+import { Form } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { IGuest } from "../store/ducks/eventsCalendar/eventsCalendar.types";
 import { RootState } from "../store/store";
@@ -19,20 +20,20 @@ export const GuestItem: React.FC<GuestType> = (props) => {
   )?.email;
 
   return (
-    <div>
-      <span>user {guestEmail}</span>
+    <li className="list-group-item d-flex justify-content-between align-items-center">
+      <span>{guestEmail}</span>
 
-      <span> permission </span>
-      <select
+      <Form.Select
+        className="w-auto"
         defaultValue={`${user}-${permission}`}
         onChange={onChangePermission}
         disabled={!canEdit}
       >
         <option value={`${user}-Viewer`}>Viewer</option>
         <option value={`${user}-Editor`}>Editor</option>
-      </select>
+      </Form.Select>
 
-      {canEdit && <span onClick={() => onDeleteGuest(user)}> X </span>}
-    </div>
+      {canEdit && <span className="btn btn-sm btn-outline-danger" onClick={() => onDeleteGuest(user)}> X </span>}
+    </li>
   );
 };

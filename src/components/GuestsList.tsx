@@ -1,4 +1,5 @@
 import React from "react";
+import { Form } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { IGuest } from "../store/ducks/eventsCalendar/eventsCalendar.types";
 import { RootState } from "../store/store";
@@ -54,32 +55,42 @@ export const GuestsList: React.FC<GuestsType> = (props) => {
   };
 
   return (
-    <div>
+    <div className="col-10 mx-3">
       {canEdit && (
-        <select onChange={handleAddGuest}>
-          <option>---</option>
-          {usersToShow.map((u) => {
-            return (
-              <option key={u.id} value={u.id}>
-                {u.email}
-              </option>
-            );
-          })}
-        </select>
-      )}
+        <>
+          <div className="row my-2">
+            <Form.Label className="col-2">{"Guests: "}</Form.Label>
+            <Form.Select
+              className="col-10 w-auto mx-3"
+              onChange={handleAddGuest}
+            >
+              <option>-- add a guest --</option>
+              {usersToShow.map((u) => {
+                return (
+                  <option key={u.id} value={u.id}>
+                    {u.email}
+                  </option>
+                );
+              })}
+            </Form.Select>
+          </div>
 
-      {guests.length > 0 &&
-        guests.map((g) => {
-          return (
-            <GuestItem
-              key={g.user}
-              guest={g}
-              canEdit={canEdit}
-              onChangePermission={handleChangePermission}
-              onDeleteGuest={handleDeleteGuest}
-            />
-          );
-        })}
+          <ul className="row my-2 list-group">
+            {guests.length > 0 &&
+              guests.map((g) => {
+                return (
+                  <GuestItem
+                    key={g.user}
+                    guest={g}
+                    canEdit={canEdit}
+                    onChangePermission={handleChangePermission}
+                    onDeleteGuest={handleDeleteGuest}
+                  />
+                );
+              })}
+          </ul>
+        </>
+      )}
     </div>
   );
 };

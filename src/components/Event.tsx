@@ -139,7 +139,7 @@ export const Event: React.FC<EventType> = (props) => {
       </Modal.Header>
 
       <Modal.Body>
-        <div className="d-flex my-2">
+        {/* <div className="d-flex my-2">
           <Form.Label>{"Id: "}</Form.Label>
           <Form.Control
             className="w-auto mx-3"
@@ -147,20 +147,16 @@ export const Event: React.FC<EventType> = (props) => {
             type={"text"}
             value={currentEvent.id ?? ""}
           />
-        </div>
+        </div> */}
 
-        <div className="d-flex my-2">
-          <Form.Label>{"Creator: "}</Form.Label>
+        <div className="row my-2">
+          <Form.Label className="col-2">{"Creator: "}</Form.Label>
           <Form.Control
-            className="w-auto mx-3"
+            className="col-10 w-auto mx-3"
             required={true}
             disabled={true}
             type={"email"}
-            placeholder={`example: test@test.com`}
             value={creatorEmail ?? ""}
-            // onChange={(event) => {
-            //   onInputChange(event.target.value);
-            // }}
             // isValid={showValidation === true && isValid === true ? true : false}
             // isInvalid={
             //   showValidation === true && isValid === false ? true : false
@@ -168,40 +164,68 @@ export const Event: React.FC<EventType> = (props) => {
           />
         </div>
 
-        <span>{`title `}</span>
-        <input
-          type={"text"}
-          disabled={!canEdit}
-          value={currentEvent.title ?? ""}
-          name={"title"}
-          onChange={handleChange}
-        />
-        <br />
-        <span>{`start `}</span>
-        <input
-          type={"datetime-local"}
-          disabled={!canEdit}
-          value={formatDate(currentEvent.start!)}
-          name={"start"}
-          onChange={handleChangeStart}
-        />
-        <br />
-        <span>{`duration `}</span>
-        <input
-          type={"number"}
-          min={0}
-          disabled={!canEdit}
-          value={currentEvent.duration ?? ""}
-          name={"duration"}
-          onChange={handleChange}
-        />
-        <br />
-        <span>{`guests `}</span>
+        <div className="row my-2">
+          <Form.Label className="col-2">{"Title: "}</Form.Label>
+          <Form.Control
+            className="col-10 w-auto mx-3"
+            required={true}
+            disabled={!canEdit}
+            type={"text"}
+            placeholder={`example: Event Test`}
+            value={currentEvent.title ?? ""}
+            name={"title"}
+            onChange={handleChange}
+            // isValid={showValidation === true && isValid === true ? true : false}
+            // isInvalid={
+            //   showValidation === true && isValid === false ? true : false
+            // }
+          />
+        </div>
+
+        <div className="row my-2">
+          <Form.Label className="col-2">{"Start: "}</Form.Label>
+          <Form.Control
+            className="col-10 w-auto mx-3"
+            required={true}
+            disabled={!canEdit}
+            type={"datetime-local"}
+            placeholder={`example: Event Test`}
+            value={formatDate(currentEvent.start!)}
+            name={"start"}
+            onChange={handleChangeStart}
+            // isValid={showValidation === true && isValid === true ? true : false}
+            // isInvalid={
+            //   showValidation === true && isValid === false ? true : false
+            // }
+          />
+        </div>
+
+        <div className="row my-2">
+          <Form.Label className="col-2">{"Duration: "}</Form.Label>
+          <Form.Control
+            className="col-10 w-auto mx-3"
+            required={true}
+            disabled={!canEdit}
+            type={"number"}
+            min={0}
+            value={currentEvent.duration ?? ""}
+            name={"duration"}
+            onChange={handleChange}
+            // isValid={showValidation === true && isValid === true ? true : false}
+            // isInvalid={
+            //   showValidation === true && isValid === false ? true : false
+            // }
+          />
+        </div>
+
+        {/* <div className="row my-2">
+          <Form.Label className="col-2">{"Guests: "}</Form.Label> */}
         <GuestsList
           guests={currentEvent.guests!}
           canEdit={canEdit}
           onChange={handleChangeGuests}
         />
+        {/* </div> */}
       </Modal.Body>
 
       <Modal.Footer>

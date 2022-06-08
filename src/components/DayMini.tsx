@@ -23,7 +23,11 @@ export const DayMini: React.FC<DayType> = (props) => {
 
   return (
     <div
-      style={{ width: "calc(100%/7)", height: "75px", cursor: "pointer" }}
+      style={{
+        width: "calc(100%/7)",
+        height: "75px",
+        cursor: "pointer",
+      }}
       className="daymini d-flex flex-column justify-content-center align-items-center border"
       onClick={handleViewDay}
     >
