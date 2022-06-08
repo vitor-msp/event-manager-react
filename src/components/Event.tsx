@@ -17,7 +17,7 @@ import {
 } from "../store/ducks/eventsCalendar/eventsCalendar.types";
 import { AppDispatch, RootState } from "../store/store";
 import { GuestsList } from "./GuestsList";
-import { Modal } from "react-bootstrap";
+import { Form, Modal } from "react-bootstrap";
 
 export type EventType = {
   event: IShowEvent;
@@ -138,75 +138,97 @@ export const Event: React.FC<EventType> = (props) => {
         <Modal.Title>Event</Modal.Title>
       </Modal.Header>
 
-      <Modal.Body>Test</Modal.Body>
+      <Modal.Body>
+        <div className="d-flex my-2">
+          <Form.Label>{"Id: "}</Form.Label>
+          <Form.Control
+            className="w-auto mx-3"
+            disabled={true}
+            type={"text"}
+            value={currentEvent.id ?? ""}
+          />
+        </div>
+
+        <div className="d-flex my-2">
+          <Form.Label>{"Creator: "}</Form.Label>
+          <Form.Control
+            className="w-auto mx-3"
+            required={true}
+            disabled={true}
+            type={"email"}
+            placeholder={`example: test@test.com`}
+            value={creatorEmail ?? ""}
+            // onChange={(event) => {
+            //   onInputChange(event.target.value);
+            // }}
+            // isValid={showValidation === true && isValid === true ? true : false}
+            // isInvalid={
+            //   showValidation === true && isValid === false ? true : false
+            // }
+          />
+        </div>
+
+        <span>{`title `}</span>
+        <input
+          type={"text"}
+          disabled={!canEdit}
+          value={currentEvent.title ?? ""}
+          name={"title"}
+          onChange={handleChange}
+        />
+        <br />
+        <span>{`start `}</span>
+        <input
+          type={"datetime-local"}
+          disabled={!canEdit}
+          value={formatDate(currentEvent.start!)}
+          name={"start"}
+          onChange={handleChangeStart}
+        />
+        <br />
+        <span>{`duration `}</span>
+        <input
+          type={"number"}
+          min={0}
+          disabled={!canEdit}
+          value={currentEvent.duration ?? ""}
+          name={"duration"}
+          onChange={handleChange}
+        />
+        <br />
+        <span>{`guests `}</span>
+        <GuestsList
+          guests={currentEvent.guests!}
+          canEdit={canEdit}
+          onChange={handleChangeGuests}
+        />
+      </Modal.Body>
+
+      <Modal.Footer>
+        {props.event.isAddition && (
+          <button className="btn btn-primary" onClick={handleAddEvent}>
+            add
+          </button>
+        )}
+
+        {!props.event.isAddition && (
+          <button className="btn btn-danger" onClick={handleExitEvent}>
+            exit of the event
+          </button>
+        )}
+
+        {!props.event.isAddition && props.event.data!.creator === 1 && (
+          <button className="btn btn-danger" onClick={handleCancelEvent}>
+            cancel event
+          </button>
+        )}
+
+        {!props.event.isAddition && canEdit && (
+          <button className="btn btn-primary" onClick={handleEditEvent}>
+            edit event
+          </button>
+        )}
+      </Modal.Footer>
     </Modal>
   );
 };
-
-// <div onClick={() => {}}>
-//   <button onClick={handleCloseEvent}>X</button>
-//   <br />
-//   <span>{`id `}</span>
-//   <input type={"text"} value={currentEvent.id ?? ""} disabled={true} />
-
-//   <br />
-//   <span>{`creator `}</span>
-//   <input type={"email"} value={creatorEmail ?? ""} disabled={true} />
-
-//   <br />
-//   <span>{`title `}</span>
-//   <input
-//     type={"text"}
-//     disabled={!canEdit}
-//     value={currentEvent.title ?? ""}
-//     name={"title"}
-//     onChange={handleChange}
-//   />
-
-//   <br />
-//   <span>{`start `}</span>
-//   <input
-//     type={"datetime-local"}
-//     disabled={!canEdit}
-//     value={formatDate(currentEvent.start!)}
-//     name={"start"}
-//     onChange={handleChangeStart}
-//   />
-
-//   <br />
-//   <span>{`duration `}</span>
-//   <input
-//     type={"number"}
-//     min={0}
-//     disabled={!canEdit}
-//     value={currentEvent.duration ?? ""}
-//     name={"duration"}
-//     onChange={handleChange}
-//   />
-
-//   <br />
-//   <span>{`guests `}</span>
-//   <GuestsList
-//     guests={currentEvent.guests!}
-//     canEdit={canEdit}
-//     onChange={handleChangeGuests}
-//   />
-
-//   <br />
-//   {props.event.isAddition && <button onClick={handleAddEvent}>add</button>}
-
-//   <br />
-//   {!props.event.isAddition && (
-//     <button onClick={handleExitEvent}>exit of the event</button>
-//   )}
-
-//   <br />
-//   {!props.event.isAddition && props.event.data!.creator === 1 && (
-//     <button onClick={handleCancelEvent}>cancel event</button>
-//   )}
-
-//   <br />
-//   {!props.event.isAddition && canEdit && (
-//     <button onClick={handleEditEvent}>edit event</button>
-//   )}
-// </div>
