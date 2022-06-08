@@ -10,7 +10,7 @@ export type EventType = {
 };
 
 export const getFormattedTime = (time: Date): string => {
-  return `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`;
+  return `${time.getHours()}:${time.getMinutes()}`;
 };
 
 export const EventMini: React.FC<EventType> = (props) => {
@@ -30,12 +30,19 @@ export const EventMini: React.FC<EventType> = (props) => {
         top: `calc(50px * ${start.getHours()} + 4px)`,
         minHeight: "30px",
         height: `calc(50px/60 * ${duration / 1000 / 60})`,
+        width: "auto",
         cursor: "pointer",
       }}
-      className="eventmini rounded px-2 w-50"
+      className="eventmini rounded px-2 d-flex justify-content-center align-items-center"
       onClick={handleSelectEvent}
     >
-      <span> {`${title} ${getFormattedTime(start)}`}</span>
+      <span className="mx-4">{title}</span>
+
+      <span className="mx-4">
+        {`${getFormattedTime(start)} - ${getFormattedTime(
+          new Date(start.getTime() + duration)
+        )}`}
+      </span>
       <br />
     </div>
   );
