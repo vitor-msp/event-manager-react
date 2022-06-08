@@ -8,9 +8,9 @@ function App() {
   const viewMode = useSelector((state: RootState) => state.viewMode.type);
 
   return (
-    <div style={{ minHeight: "100vh" }} className="bg-light p-1">
-      <h1 className="">Event Manager</h1>
-      <div className="">
+    <div className="container-fluid p-1">
+      <h1>Event Manager</h1>
+      <div>
         {viewMode === ViewType.day && <Day />}
         {viewMode === ViewType.month && <Month />}
       </div>
