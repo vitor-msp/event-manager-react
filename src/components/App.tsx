@@ -29,14 +29,20 @@ function App() {
 
   return (
     <div className="container-fluid p-1">
-      <h1>Event Manager</h1>
+      <div className="d-flex flex-row justify-content-between">
+        <h1>Event Manager</h1>
+
+        <button className="btn btn-outline-primary" onClick={() => {}}>
+          My Account
+        </button>
+      </div>
 
       {/* <div>
         <button onClick={login}>login</button>
         <button onClick={getUsers}>get users</button>
       </div> */}
 
-      <div className="">
+      <div>
         <button
           style={{ fontSize: "1.5em", position: "absolute" }}
           className="btn btn-lg btn-primary mx-2"
