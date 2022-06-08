@@ -31,11 +31,7 @@ export const Event: React.FC<EventType> = (props) => {
   const creatorEmail = useSelector((state: RootState) =>
     state.users.data.users.find((u) => u.id === creator)
   )?.email;
-
-  useEffect(() => {
-    setShowModal(true);
-  }, []);
-
+  const [endEvent, setEndEvent] = useState<Date>(new Date());
   const [currentEvent, setCurrentEvent] = useState<ICurrentEvent>({
     id,
     creator,
@@ -44,6 +40,18 @@ export const Event: React.FC<EventType> = (props) => {
     start: start ?? new Date(),
     title,
   });
+
+  useEffect(() => {
+    setShowModal(true);
+  }, []);
+
+  useEffect(() => {
+    const end = new Date(
+      currentEvent.start!.getTime() + currentEvent.duration!
+    );
+
+    setEndEvent(end);
+  }, []);
 
   useEffect(() => {
     (() => {
@@ -81,6 +89,19 @@ export const Event: React.FC<EventType> = (props) => {
       start: new Date(e.target.value),
     });
   };
+
+  const handleChangeEnd = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEndEvent(new Date(e.target.value));
+  };
+
+  useEffect(() => {
+    const duration = endEvent.getTime() - currentEvent.start!.getTime();
+
+    setCurrentEvent({
+      ...currentEvent,
+      duration,
+    });
+  }, [endEvent]);
 
   const handleChangeGuests = (guests: IGuest[]): void => {
     setCurrentEvent({ ...currentEvent, guests });
@@ -189,7 +210,6 @@ export const Event: React.FC<EventType> = (props) => {
             required={true}
             disabled={!canEdit}
             type={"datetime-local"}
-            placeholder={`example: Event Test`}
             value={formatDate(currentEvent.start!)}
             name={"start"}
             onChange={handleChangeStart}
@@ -201,16 +221,15 @@ export const Event: React.FC<EventType> = (props) => {
         </div>
 
         <div className="row my-2">
-          <Form.Label className="col-2">{"Duration: "}</Form.Label>
+          <Form.Label className="col-2">{"End: "}</Form.Label>
           <Form.Control
             className="col-10 w-auto mx-3"
             required={true}
             disabled={!canEdit}
-            type={"number"}
-            min={0}
-            value={currentEvent.duration ?? ""}
+            type={"datetime-local"}
+            value={formatDate(endEvent)}
             name={"duration"}
-            onChange={handleChange}
+            onChange={handleChangeEnd}
             // isValid={showValidation === true && isValid === true ? true : false}
             // isInvalid={
             //   showValidation === true && isValid === false ? true : false
@@ -218,14 +237,11 @@ export const Event: React.FC<EventType> = (props) => {
           />
         </div>
 
-        {/* <div className="row my-2">
-          <Form.Label className="col-2">{"Guests: "}</Form.Label> */}
         <GuestsList
           guests={currentEvent.guests!}
           canEdit={canEdit}
           onChange={handleChangeGuests}
         />
-        {/* </div> */}
       </Modal.Body>
 
       <Modal.Footer>

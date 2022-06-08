@@ -55,42 +55,37 @@ export const GuestsList: React.FC<GuestsType> = (props) => {
   };
 
   return (
-    <div className="col-10 mx-3">
+    <>
       {canEdit && (
-        <>
-          <div className="row my-2">
-            <Form.Label className="col-2">{"Guests: "}</Form.Label>
-            <Form.Select
-              className="col-10 w-auto mx-3"
-              onChange={handleAddGuest}
-            >
-              <option>-- add a guest --</option>
-              {usersToShow.map((u) => {
-                return (
-                  <option key={u.id} value={u.id}>
-                    {u.email}
-                  </option>
-                );
-              })}
-            </Form.Select>
-          </div>
-
-          <ul className="row my-2 list-group">
-            {guests.length > 0 &&
-              guests.map((g) => {
-                return (
-                  <GuestItem
-                    key={g.user}
-                    guest={g}
-                    canEdit={canEdit}
-                    onChangePermission={handleChangePermission}
-                    onDeleteGuest={handleDeleteGuest}
-                  />
-                );
-              })}
-          </ul>
-        </>
+        <div className="row my-2">
+          <Form.Label className="col-2">{"Guests: "}</Form.Label>
+          <Form.Select className="col-10 w-auto mx-3" onChange={handleAddGuest}>
+            <option>-- add a guest --</option>
+            {usersToShow.map((u) => {
+              return (
+                <option key={u.id} value={u.id}>
+                  {u.email}
+                </option>
+              );
+            })}
+          </Form.Select>
+        </div>
       )}
-    </div>
+
+      <ul className="row my-2 list-group px-4">
+        {guests.length > 0 &&
+          guests.map((g) => {
+            return (
+              <GuestItem
+                key={g.user}
+                guest={g}
+                canEdit={canEdit}
+                onChangePermission={handleChangePermission}
+                onDeleteGuest={handleDeleteGuest}
+              />
+            );
+          })}
+      </ul>
+    </>
   );
 };
