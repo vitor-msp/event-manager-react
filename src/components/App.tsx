@@ -31,13 +31,20 @@ function App() {
     <div className="container-fluid p-1">
       <h1>Event Manager</h1>
 
-      <div>
+      {/* <div>
         <button onClick={login}>login</button>
         <button onClick={getUsers}>get users</button>
-        <button onClick={addEvent}>add event</button>
-      </div>
+      </div> */}
 
-      <div>
+      <div className="">
+        <button
+          style={{ fontSize: "1.5em", position: "absolute" }}
+          className="btn btn-lg btn-primary mx-2"
+          onClick={addEvent}
+        >
+          +
+        </button>
+
         {viewMode === ViewType.day && <Day />}
         {viewMode === ViewType.month && <Month />}
       </div>
