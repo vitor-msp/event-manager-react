@@ -115,18 +115,24 @@ export const Event: React.FC<EventType> = (props) => {
     const eventToPost = copyEvent(currentEvent);
 
     await dispatch(addEventRequest(eventToPost));
+
+    handleCloseEvent();
   };
 
   const handleExitEvent = async (): Promise<void> => {
     const eventToExit = copyEvent(props.event.data!);
 
     await dispatch(exitEventRequest(eventToExit));
+
+    handleCloseEvent();
   };
 
   const handleCancelEvent = async (): Promise<void> => {
     const eventToCancel = copyEvent(props.event.data!);
 
     await dispatch(cancelEventRequest(eventToCancel));
+
+    handleCloseEvent();
   };
 
   const handleEditEvent = async (): Promise<void> => {
@@ -138,6 +144,8 @@ export const Event: React.FC<EventType> = (props) => {
         editedEvent: eventToEdit,
       })
     );
+
+    handleCloseEvent();
   };
 
   const copyEvent = (event: ICurrentEvent): IEvent => {
