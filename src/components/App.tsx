@@ -7,6 +7,7 @@ import { AppDispatch, RootState } from "../store/store";
 import { Day } from "./Day";
 import { Event } from "./Event";
 import { Header } from "./Header";
+import { Login } from "./Login";
 import { Month } from "./Month";
 import { MyAccount } from "./MyAccount";
 
@@ -32,7 +33,7 @@ function App() {
 
       <BrowserRouter>
         <Routes>
-          <Route path={"/" || "/login"} element={<p>login</p>} />
+          <Route path={"/" || "/login"} element={<Login/>} />
           <Route path="/month" element={<Header child={<Month />} />} />
           <Route path="/day" element={<Header child={<Day />} />} />
           <Route path="/my-account" element={<MyAccount />} />
