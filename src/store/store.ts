@@ -5,14 +5,12 @@ import { currentEventReducer } from "./ducks/currentEvent/currentEvent.slice";
 import { currentUserReducer } from "./ducks/currentUser/currentUser.slice";
 import { eventsCalendarReducer } from "./ducks/eventsCalendar/eventsCalendar.slice";
 import { usersReducer } from "./ducks/users/users.slice";
-import { viewModeReducer } from "./ducks/viewMode/viewMode.slice";
 
 export const store = configureStore({
   reducer: {
     eventsCalendar: eventsCalendarReducer,
     currentEvent: currentEventReducer,
     currentDate: currentDateReducer,
-    viewMode: viewModeReducer,
     users: usersReducer,
     currentUser: currentUserReducer,
   },

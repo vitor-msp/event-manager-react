@@ -1,7 +1,7 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCurrentDay } from "../store/ducks/currentDate/currentDate.slice";
-import { setViewDay } from "../store/ducks/viewMode/viewMode.slice";
 import { AppDispatch } from "../store/store";
 import "./DayMini.css";
 
@@ -15,10 +15,12 @@ export const DayMini: React.FC<DayType> = (props) => {
 
   const dispatch = useDispatch<AppDispatch>();
 
+  const navigate = useNavigate();
+
   const handleViewDay = async () => {
     await dispatch(setCurrentDay(day));
 
-    dispatch(setViewDay());
+    navigate("/day");
   };
 
   return (

@@ -1,15 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { setCurrentEvent } from "../store/ducks/currentEvent/currentEvent.slice";
 import { loginRequest } from "../store/ducks/currentUser/currentUser.middleware";
 import { getUsersRequest } from "../store/ducks/users/users.middleware";
-import { ViewType } from "../store/ducks/viewMode/viewMode.types";
 import { AppDispatch, RootState } from "../store/store";
 import { Day } from "./Day";
 import { Event } from "./Event";
 import { Month } from "./Month";
 
 function App() {
-  const viewMode = useSelector((state: RootState) => state.viewMode.type);
   const currentEvent = useSelector((state: RootState) => state.currentEvent);
   const currentUser = useSelector((state: RootState) => state.currentUser);
 
@@ -50,10 +49,16 @@ function App() {
         >
           +
         </button>
-
-        {viewMode === ViewType.day && <Day />}
-        {viewMode === ViewType.month && <Month />}
       </div>
+
+      <BrowserRouter>
+        <Routes>
+          <Route path={"/" || "login"} element={<p>login</p>} />
+          <Route path="month" element={<Month />} />
+          <Route path="day" element={<Day />} />
+          <Route path="my-account" element={<p>my account</p>} />
+        </Routes>
+      </BrowserRouter>
 
       {currentEvent.show && <Event event={currentEvent} />}
     </div>

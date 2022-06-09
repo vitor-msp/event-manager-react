@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   decrementDay,
@@ -9,7 +10,6 @@ import {
   IDay,
   IMonth,
 } from "../store/ducks/eventsCalendar/eventsCalendar.types";
-import { setViewMonth } from "../store/ducks/viewMode/viewMode.slice";
 import { AppDispatch, RootState } from "../store/store";
 import { EventMini } from "./EventMini";
 
@@ -27,6 +27,7 @@ export const Day = () => {
 
   useEffect(() => {
     (async () => {
+      console.log(currentDate);
       const month = findMonth();
 
       if (month) {
@@ -70,22 +71,14 @@ export const Day = () => {
     dispatch(decrementDay());
   };
 
-  const handleViewMonth = () => {
-    dispatch(setViewMonth());
-  };
-
   return (
     <div>
       <div className="d-flex justify-content-center">
-        <button
-          type="button"
-          onClick={handleViewMonth}
-          className="btn btn-outline-primary mx-3"
-        >
+        <NavLink to={"/month"} className="btn btn-outline-primary mx-3">
           {currentDate.toLocaleString("default", {
             month: "long",
           })}
-        </button>
+        </NavLink>
 
         <h3 className="text-center text-primary mx-3">
           {currentDate.toUTCString().substring(0, 16)}
