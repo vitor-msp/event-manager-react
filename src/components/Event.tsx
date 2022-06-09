@@ -186,10 +186,6 @@ export const Event: React.FC<EventType> = (props) => {
             disabled={true}
             type={"email"}
             value={creatorEmail ?? ""}
-            // isValid={showValidation === true && isValid === true ? true : false}
-            // isInvalid={
-            //   showValidation === true && isValid === false ? true : false
-            // }
           />
         </div>
 
@@ -204,10 +200,6 @@ export const Event: React.FC<EventType> = (props) => {
             value={currentEvent.title ?? ""}
             name={"title"}
             onChange={handleChange}
-            // isValid={showValidation === true && isValid === true ? true : false}
-            // isInvalid={
-            //   showValidation === true && isValid === false ? true : false
-            // }
           />
         </div>
 
@@ -221,10 +213,6 @@ export const Event: React.FC<EventType> = (props) => {
             value={formatDate(currentEvent.start!)}
             name={"start"}
             onChange={handleChangeStart}
-            // isValid={showValidation === true && isValid === true ? true : false}
-            // isInvalid={
-            //   showValidation === true && isValid === false ? true : false
-            // }
           />
         </div>
 
@@ -238,10 +226,6 @@ export const Event: React.FC<EventType> = (props) => {
             value={formatDate(endEvent)}
             name={"duration"}
             onChange={handleChangeEnd}
-            // isValid={showValidation === true && isValid === true ? true : false}
-            // isInvalid={
-            //   showValidation === true && isValid === false ? true : false
-            // }
           />
         </div>
 

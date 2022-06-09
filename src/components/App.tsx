@@ -8,6 +8,7 @@ import { Day } from "./Day";
 import { Event } from "./Event";
 import { Header } from "./Header";
 import { Month } from "./Month";
+import { MyAccount } from "./MyAccount";
 
 function App() {
   const currentEvent = useSelector((state: RootState) => state.currentEvent);
@@ -27,12 +28,14 @@ function App() {
 
   return (
     <div className="container-fluid p-1">
+      <h1>Event Manager</h1>
+
       <BrowserRouter>
         <Routes>
           <Route path={"/" || "/login"} element={<p>login</p>} />
           <Route path="/month" element={<Header child={<Month />} />} />
           <Route path="/day" element={<Header child={<Day />} />} />
-          <Route path="/my-account" element={<p>my account</p>} />
+          <Route path="/my-account" element={<MyAccount />} />
         </Routes>
       </BrowserRouter>
 

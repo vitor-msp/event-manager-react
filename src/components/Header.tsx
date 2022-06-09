@@ -27,13 +27,13 @@ export const Header: React.FC<IHeader> = (props) => {
 
   return (
     <>
-      <div className="d-flex flex-row justify-content-between">
-        <h1>Event Manager</h1>
-
-        <NavLink to={"/my-account"} className="btn btn-lg btn-outline-primary align-self-start">
-          My Account
-        </NavLink>
-      </div>
+      <NavLink
+        to={"/my-account"}
+        style={{ position: "absolute", right: "5px", top: "5px" }}
+        className="btn btn-lg btn-outline-primary"
+      >
+        My Account
+      </NavLink>
 
       <div>
         <button
