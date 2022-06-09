@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Form, Modal } from "react-bootstrap";
 import { clearCurrentEvent } from "../store/ducks/currentEvent/currentEvent.slice";
 import {
   ICurrentEvent,
@@ -17,7 +18,6 @@ import {
 } from "../store/ducks/eventsCalendar/eventsCalendar.types";
 import { AppDispatch, RootState } from "../store/store";
 import { GuestsList } from "./GuestsList";
-import { Form, Modal } from "react-bootstrap";
 
 export type EventType = {
   event: IShowEvent;
