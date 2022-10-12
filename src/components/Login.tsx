@@ -36,12 +36,7 @@ export const Login = () => {
   };
 
   const handleLogin = () => {
-    const loginRequestData: ILoginRequest = {
-      email: loginData.email,
-      password: loginData.password,
-    };
-
-    dispatch(loginRequest(loginRequestData));
+    dispatch(loginRequest(loginData));
   };
 
   return (
