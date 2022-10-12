@@ -18,6 +18,8 @@ const usersSlice = createSlice({
         users.pop();
       }
 
+      console.log(payload);
+
       users.push(...payload.users);
     },
   },

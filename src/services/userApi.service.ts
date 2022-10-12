@@ -1,4 +1,3 @@
-import axios from "axios";
 import {
   ISignUpData,
   SignUpFailure,
@@ -12,6 +11,7 @@ import {
   IUpdateUserDataRequest,
   IUserData,
 } from "../store/ducks/userData/userData.types";
+import { IUsers } from "../store/ducks/users/users.types";
 import { api, injectJwt } from "./baseApi.service";
 
 export const loginRequestApi = async (
@@ -53,6 +53,14 @@ export const signUpRequestApi = async (
     .post("/user", signUpData)
     .then((res) => res)
     .catch((error) => error.response);
+
+  return res.data;
+};
+
+export const getUsersRequestApi = async (jwt: string): Promise<IUsers> => {
+  const res = await api.get("/users", {
+    headers: injectJwt(jwt),
+  });
 
   return res.data;
 };
