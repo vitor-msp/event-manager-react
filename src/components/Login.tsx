@@ -6,6 +6,7 @@ import { AppDispatch, RootState } from "../store/store";
 import { loginRequest } from "../store/ducks/currentUser/currentUser.middleware";
 import { ILoginRequest } from "../store/ducks/currentUser/currentUser.types";
 import "./Login.css";
+import { userIsLoggedIn } from "../services/user.service";
 
 export interface ILogin {
   email: string;
@@ -19,12 +20,12 @@ export const Login = () => {
   });
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const userId = useSelector((state: RootState) => state.currentUser.id);
+  const currentUser = useSelector((state: RootState) => state.currentUser);
 
   useEffect(() => {
-    if (userId && typeof userId === "number") navigate("/month");
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userId]);
+    if (userIsLoggedIn(currentUser)) navigate("/month");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentUser]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });

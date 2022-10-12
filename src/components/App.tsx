@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
+import { userIsLoggedIn } from "../services/user.service";
 import { loginRequest } from "../store/ducks/currentUser/currentUser.middleware";
 import { getUsersRequest } from "../store/ducks/users/users.middleware";
 import { AppDispatch, RootState } from "../store/store";
@@ -13,19 +14,13 @@ import { MyAccount } from "./MyAccount";
 
 function App() {
   const currentEvent = useSelector((state: RootState) => state.currentEvent);
-
+  const currentUser = useSelector((state: RootState) => state.currentUser);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    // dispatch(getUsersRequest());
-
-    // dispatch(loginRequest({ email: "a", password: "a" }));
-  }, []);
-
-  //     <div>
-  //   <button onClick={login}>login</button>
-  //   <button onClick={getUsers}>get users</button>
-  // </div>
+    if (userIsLoggedIn(currentUser)) dispatch(getUsersRequest());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentUser]);
 
   return (
     <div className="container-fluid p-1">
@@ -33,7 +28,7 @@ function App() {
 
       <BrowserRouter>
         <Routes>
-          <Route path={"/" || "/login"} element={<Login/>} />
+          <Route path={"/" || "/login"} element={<Login />} />
           <Route path="/month" element={<Header child={<Month />} />} />
           <Route path="/day" element={<Header child={<Day />} />} />
           <Route path="/my-account" element={<MyAccount />} />
