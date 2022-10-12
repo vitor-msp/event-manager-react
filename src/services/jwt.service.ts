@@ -7,17 +7,19 @@ export type jwtData = {
 const localStorageKey = "eventManagerKey";
 
 export const saveJwt = (jwtData: jwtData): void => {
-  localStorage.setItem(localStorageKey, jwtData.jwt);
-
-  const savedJwt = findJwt();
-
-  if (!savedJwt || savedJwt !== jwtData.jwt) throw new Error("Error to save jwt in local storage.");
+  try {
+    localStorage.setItem(localStorageKey, jwtData.jwt);
+  } catch (error) {
+    throw new Error("Error to save jwt in local storage.");
+  }
 };
 
-export const findJwt = (): string | null => {
+export const findJwt = (): string => {
   const jwt = localStorage.getItem(localStorageKey);
 
-  return jwt ?? null;
+  if (!jwt) throw new Error("Error to find jwt.");
+
+  return jwt;
 };
 
 export const removeJwt = (): void => {
@@ -25,7 +27,7 @@ export const removeJwt = (): void => {
 
   const jwt = findJwt();
 
-  if(jwt) throw new Error("Error to remove jwt from local storage.");
+  if (jwt) throw new Error("Error to remove jwt from local storage.");
 };
 
 export const decodeJwt = (jwt: string): number => {
@@ -37,6 +39,6 @@ export const decodeJwt = (jwt: string): number => {
   const userId: number = +decodedJwt.userId;
 
   if (!userId) throw new Error("User id not find in jwt.");
-  
+
   return userId;
 };
