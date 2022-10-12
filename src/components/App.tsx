@@ -17,9 +17,9 @@ function App() {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    dispatch(getUsersRequest());
+    // dispatch(getUsersRequest());
 
-    dispatch(loginRequest({ email: "a", password: "a" }));
+    // dispatch(loginRequest({ email: "a", password: "a" }));
   }, []);
 
   //     <div>

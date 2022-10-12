@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";
@@ -19,10 +19,12 @@ export const Login = () => {
   });
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const userId = useSelector((state: RootState) => state.currentUser.id);
 
   useEffect(() => {
-    // dispatch(getUserDataRequest());
-  }, []);
+    if (userId && typeof userId === "number") navigate("/month");
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userId]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
@@ -39,7 +41,6 @@ export const Login = () => {
     };
 
     dispatch(loginRequest(loginRequestData));
-    // navigate("/month");
   };
 
   return (

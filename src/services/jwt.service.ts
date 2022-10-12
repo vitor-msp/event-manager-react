@@ -4,7 +4,7 @@ export type jwtData = {
   jwt: string;
 };
 
-const localStorageKey = "eventManagerKeyaaa";
+const localStorageKey = "eventManagerKey";
 
 export const saveJwt = (jwtData: jwtData): void => {
   localStorage.setItem(localStorageKey, jwtData.jwt);
