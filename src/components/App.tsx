@@ -10,6 +10,7 @@ import { Header } from "./Header";
 import { Login } from "./Login";
 import { Month } from "./Month";
 import { MyAccount } from "./MyAccount";
+import { SignUp } from "./SignUp";
 
 function App() {
   const currentEvent = useSelector((state: RootState) => state.currentEvent);
@@ -32,6 +33,7 @@ function App() {
           <Route path="/month" element={<Header child={<Month />} />} />
           <Route path="/day" element={<Header child={<Day />} />} />
           <Route path="/my-account" element={<MyAccount />} />
+          <Route path="/signup" element={<SignUp />} />
         </Routes>
       </BrowserRouter>
 

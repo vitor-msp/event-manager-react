@@ -1,5 +1,10 @@
 import axios from "axios";
 import {
+  ISignUpData,
+  SignUpFailure,
+  SignUpSuccess,
+} from "../components/SignUp";
+import {
   ILoginRequest,
   ILoginResponse,
 } from "../store/ducks/currentUser/currentUser.types";
@@ -40,10 +45,21 @@ export const getUserDataRequestApi = async (
 export const updateUserDataRequestApi = async (
   userData: IUpdateUserDataRequest,
   jwt: string
-): Promise<IUserData> => {
+): Promise<void> => {
   const res = await api.put("/user", userData, {
     headers: injectJwt(jwt),
   });
+
+  if (res.status !== 200) throw new Error("Error to login.");
+};
+
+export const signUpRequestApi = async (
+  signUpData: ISignUpData
+): Promise<SignUpSuccess | SignUpFailure> => {
+  const res = await api
+    .post("/user", signUpData)
+    .then((res) => res)
+    .catch((error) => error.response);
 
   return res.data;
 };
