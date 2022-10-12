@@ -1,4 +1,7 @@
 // data types
+export interface IUpdateUserDataRequest {
+  name: string;
+}
 export interface IUserData {
   id: number;
   email: string;

@@ -3,7 +3,10 @@ import {
   ILoginRequest,
   ILoginResponse,
 } from "../store/ducks/currentUser/currentUser.types";
-import { IUserData } from "../store/ducks/userData/userData.types";
+import {
+  IUpdateUserDataRequest,
+  IUserData,
+} from "../store/ducks/userData/userData.types";
 
 const api = axios.create({
   baseURL: "http://localhost:8080",
@@ -28,6 +31,17 @@ export const getUserDataRequestApi = async (
   jwt: string
 ): Promise<IUserData> => {
   const res = await api.get("/user", {
+    headers: injectJwt(jwt),
+  });
+
+  return res.data;
+};
+
+export const updateUserDataRequestApi = async (
+  userData: IUpdateUserDataRequest,
+  jwt: string
+): Promise<IUserData> => {
+  const res = await api.put("/user", userData, {
     headers: injectJwt(jwt),
   });
 

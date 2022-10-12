@@ -3,7 +3,10 @@ import { NavLink } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";
-import { getUserDataRequest } from "../store/ducks/userData/userData.middleware";
+import {
+  getUserDataRequest,
+  updateUserDataRequest,
+} from "../store/ducks/userData/userData.middleware";
 
 export interface IUser {
   email: string;
@@ -32,7 +35,7 @@ export const MyAccount = () => {
   };
 
   const handleUpdateUserData = () => {
-    // dispatch(updateUserDataRequest());
+    dispatch(updateUserDataRequest({ name: userData.name }));
   };
 
   return (

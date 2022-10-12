@@ -1,5 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ICurrentUserData, IUserData } from "./userData.types";
+import {
+  ICurrentUserData,
+  IUpdateUserDataRequest,
+  IUserData,
+} from "./userData.types";
 
 const initialState: ICurrentUserData = {
   data: null,
@@ -17,9 +21,16 @@ const userDataSlice = createSlice({
     removeUserData: (state) => {
       state.data = null;
     },
+    updateUserData: (
+      state,
+      { payload }: PayloadAction<IUpdateUserDataRequest>
+    ) => {
+      state.data!.name = payload.name;
+    },
   },
 });
 
-export const { setUserData, removeUserData } = userDataSlice.actions;
+export const { setUserData, removeUserData, updateUserData } =
+  userDataSlice.actions;
 
 export const userDataReducer = userDataSlice.reducer;
