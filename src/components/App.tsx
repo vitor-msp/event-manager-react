@@ -30,6 +30,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path={"/"} element={<Home />} />
+          <Route path={"/home"} element={<Home />} />
           <Route path={"/login"} element={<Login />} />
           <Route path="/month" element={<Header child={<Month />} />} />
           <Route path="/day" element={<Header child={<Day />} />} />

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import { signUpRequestApi } from "../services/userApi.service";
 
@@ -61,6 +61,10 @@ export const SignUp = () => {
 
   return (
     <div className="container-fluid">
+      <NavLink to={"/home"} className="btn btn-outline-primary w-auto">
+        {"<< Back"}
+      </NavLink>
+
       <div className="mx-auto border rounded my-mw-600">
         <h3 className="text-center text-primary">Sign Up</h3>
 

@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";
 import { loginRequest } from "../store/ducks/currentUser/currentUser.middleware";
-import { ILoginRequest } from "../store/ducks/currentUser/currentUser.types";
 import "./Login.css";
 import { userIsLoggedIn } from "../services/user.service";
 
@@ -41,6 +40,10 @@ export const Login = () => {
 
   return (
     <div className="container-fluid">
+      <NavLink to={"/home"} className="btn btn-outline-primary w-auto">
+        {"<< Back"}
+      </NavLink>
+
       <div className="mx-auto border rounded my-mw-600">
         <h3 className="text-center text-primary">Login</h3>
 

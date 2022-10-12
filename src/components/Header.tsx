@@ -32,7 +32,7 @@ export const Header: React.FC<IHeader> = (props) => {
           My Account
         </NavLink>
         <NavLink
-          to={"/login"}
+          to={"/home"}
           onClick={handleLogout}
           className="btn btn-lg btn-outline-primary mx-1"
         >
