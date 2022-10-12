@@ -1,31 +1,19 @@
-import { decodeJwt, removeJwt, saveJwt } from "../../../services/jwt.service";
-import { loginRequestApi } from "../../../services/userApi.service";
+import { findJwt } from "../../../services/jwt.service";
+import { getUserDataRequestApi } from "../../../services/userApi.service";
 import { AppThunk } from "../../store";
-import { loginUser, logoutUser } from "./userData.slice";
-import { ILoginRequest } from "./userData.types";
+import { setUserData } from "./userData.slice";
+import { IUserData } from "./userData.types";
 
-export const loginRequest =
-  (loginData: ILoginRequest): AppThunk =>
-  async (dispatch) => {
-    try {
-      const jwtData = await loginRequestApi(loginData);
-
-      saveJwt({ jwt: jwtData.jwt });
-
-      const userId = decodeJwt(jwtData.jwt);
-
-      dispatch(loginUser({ id: userId }));
-    } catch (error) {
-      alert("Error in login request");
-    }
-  };
-
-export const logoutRequest = (): AppThunk => async (dispatch) => {
+export const getUserDataRequest = (): AppThunk => async (dispatch) => {
   try {
-    removeJwt();
+    const jwt = findJwt();
 
-    dispatch(logoutUser());
+    if (!jwt) throw new Error("Error to find jwt.");
+
+    const userData: IUserData = await getUserDataRequestApi(jwt);
+    console.log(userData);
+    dispatch(setUserData(userData));
   } catch (error) {
-    alert("Error in logout");
+    alert("Error to get user data.");
   }
 };

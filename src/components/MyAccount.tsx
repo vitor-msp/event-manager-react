@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";
+import { getUserDataRequest } from "../store/ducks/userData/userData.middleware";
 
 export interface IUser {
   email: string;
@@ -10,13 +11,21 @@ export interface IUser {
 }
 
 export const MyAccount = () => {
-  const currentUser = useSelector((state: RootState) => state.currentUser);
-  const [userData, setUserData] = useState<IUser>({ email: "a@a.com", name: "aaaa" });
+  const userDataState = useSelector((state: RootState) => state.userData.data);
+  const [userData, setUserData] = useState<IUser>({
+    email: "",
+    name: "",
+  });
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    // dispatch(getUserDataRequest());
-  }, []);
+    if (userDataState) {
+      setUserData({ ...userDataState });
+    } else {
+      dispatch(getUserDataRequest());
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userDataState]);
 
   const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserData({ ...userData, name: e.target.value });
