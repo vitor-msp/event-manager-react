@@ -3,6 +3,9 @@ export interface ILoginRequest {
   email: string;
   password: string;
 }
+export interface ILoginResponse {
+  jwt: string;
+}
 export interface ICurrentUser {
   id: number | null;
 }

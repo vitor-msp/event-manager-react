@@ -1,4 +1,5 @@
 import { decodeJwt, saveJwt } from "../../../services/jwt.service";
+import { loginRequestApi } from "../../../services/userApi.service";
 import { AppThunk } from "../../store";
 import { loginUser } from "./currentUser.slice";
 import { ILoginRequest } from "./currentUser.types";
@@ -7,16 +8,11 @@ export const loginRequest =
   (loginData: ILoginRequest): AppThunk =>
   async (dispatch) => {
     try {
-      // simulate request;
-      const res = {
-        data: {
-          jwt: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidXNlcklkIjoxLCJpYXQiOjE1MTYyMzkwMjJ9.Ltv_sh4_oDD92HY8Hp3S3IafvsXjqMGPdUgRRSQzbU4",
-        },
-      };
+      const jwtData = await loginRequestApi(loginData);
 
-      saveJwt({ jwt: res.data.jwt });
+      saveJwt({ jwt: jwtData.jwt });
 
-      const userId = decodeJwt(res.data.jwt);
+      const userId = decodeJwt(jwtData.jwt);
 
       dispatch(loginUser({ id: userId }));
     } catch (error) {
