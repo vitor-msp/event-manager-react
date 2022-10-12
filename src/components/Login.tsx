@@ -3,6 +3,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";
+import { loginRequest } from "../store/ducks/currentUser/currentUser.middleware";
+import { ILoginRequest } from "../store/ducks/currentUser/currentUser.types";
 import "./Login.css";
 
 export interface ILogin {
@@ -31,8 +33,13 @@ export const Login = () => {
   };
 
   const handleLogin = () => {
-    dispatch(loginRequest());
-    navigate("/month");
+    const loginRequestData: ILoginRequest = {
+      email: loginData.email,
+      password: loginData.password,
+    };
+
+    dispatch(loginRequest(loginRequestData));
+    // navigate("/month");
   };
 
   return (
