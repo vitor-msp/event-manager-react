@@ -23,11 +23,11 @@ export const findJwt = (): string => {
 };
 
 export const removeJwt = (): void => {
-  localStorage.removeItem(localStorageKey);
-
-  const jwt = findJwt();
-
-  if (jwt) throw new Error("Error to remove jwt from local storage.");
+  try {
+    localStorage.removeItem(localStorageKey);
+  } catch (error) {
+    throw new Error("Error to remove jwt from local storage.");
+  }
 };
 
 export const decodeJwt = (jwt: string): number => {
