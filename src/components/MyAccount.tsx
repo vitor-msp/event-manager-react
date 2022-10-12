@@ -7,6 +7,7 @@ import {
   getUserDataRequest,
   updateUserDataRequest,
 } from "../store/ducks/userData/userData.middleware";
+import { ChangePassword } from "./ChangePassword";
 
 export interface IUser {
   email: string;
@@ -46,7 +47,6 @@ export const MyAccount = () => {
 
       <div className="w-50 mx-auto border rounded">
         <h3 className="text-center text-primary">My Account</h3>
-
         <Form
           className="my-2 p-2"
           onSubmit={(e) => {
@@ -87,6 +87,8 @@ export const MyAccount = () => {
             />
           </div>
         </Form>
+
+        <ChangePassword />
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+import { IChangePasswordRequest } from "../components/ChangePassword";
 import {
   ISignUpData,
   SignUpFailure,
@@ -61,6 +62,20 @@ export const getUsersRequestApi = async (jwt: string): Promise<IUsers> => {
   const res = await api.get("/users", {
     headers: injectJwt(jwt),
   });
+
+  return res.data;
+};
+
+export const changePasswordRequestApi = async (
+  changePasswordData: IChangePasswordRequest,
+  jwt: string
+): Promise<{ message: string }> => {
+  const res = await api
+    .put("/user/password", changePasswordData, {
+      headers: injectJwt(jwt),
+    })
+    .then((res) => res)
+    .catch((error) => error.response);
 
   return res.data;
 };
