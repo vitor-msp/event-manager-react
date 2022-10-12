@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";
-import "./Login.css"
+import "./Login.css";
 
 export interface ILogin {
   email: string;
@@ -26,8 +26,12 @@ export const Login = () => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
   };
 
+  const handleReset = () => {
+    setLoginData({ email: "", password: "" });
+  };
+
   const handleLogin = () => {
-    // dispatch(loginRequest());
+    dispatch(loginRequest());
     navigate("/month");
   };
 
@@ -77,6 +81,7 @@ export const Login = () => {
             <input
               type={"reset"}
               value={"Clean"}
+              onClick={handleReset}
               className={"btn btn-outline-primary w-auto mx-2"}
             />
 
