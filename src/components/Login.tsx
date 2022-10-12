@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";
+import "./Login.css"
 
 export interface ILogin {
   email: string;
@@ -32,7 +33,7 @@ export const Login = () => {
 
   return (
     <div className="container-fluid">
-      <div className="w-50 mx-auto border rounded">
+      <div className="mx-auto border rounded my-mw-600">
         <h3 className="text-center text-primary">Login</h3>
 
         <Form
@@ -43,22 +44,27 @@ export const Login = () => {
             handleLogin();
           }}
         >
-          <div className="d-flex justify-content-center my-2">
-            <Form.Label className="">{"Email: "}</Form.Label>
+          <div className="row my-2">
+            <Form.Label className="col-12 col-md-4 my-text-right">
+              {"Email: "}
+            </Form.Label>
             <Form.Control
-              className="w-auto mx-3"
+              className="col-12 col-md-8 w-auto mx-3"
               required={true}
               type={"email"}
               name={"email"}
               value={loginData.email}
               onChange={handleChange}
+              autoFocus={true}
             />
           </div>
 
-          <div className="d-flex justify-content-center my-2">
-            <Form.Label className="">{"Password: "}</Form.Label>
+          <div className="row my-2">
+            <Form.Label className="col-12 col-md-4 my-text-right">
+              {"Password: "}
+            </Form.Label>
             <Form.Control
-              className="w-auto mx-3"
+              className="col-12 col-md-8 w-auto mx-3"
               required={true}
               type={"password"}
               name={"password"}
