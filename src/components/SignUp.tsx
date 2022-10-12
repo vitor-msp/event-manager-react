@@ -7,6 +7,7 @@ export interface ISignUpData {
   name: string;
   email: string;
   password: string;
+  confPassword: string;
 }
 
 export interface SignUpSuccess {
@@ -17,12 +18,15 @@ export interface SignUpFailure {
   message: string;
 }
 
+const emptySignUpData: ISignUpData = {
+  name: "",
+  email: "",
+  password: "",
+  confPassword: "",
+};
+
 export const SignUp = () => {
-  const [signUpData, setSignUpData] = useState<ISignUpData>({
-    name: "",
-    email: "",
-    password: "",
-  });
+  const [signUpData, setSignUpData] = useState<ISignUpData>(emptySignUpData);
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,10 +34,15 @@ export const SignUp = () => {
   };
 
   const handleReset = () => {
-    setSignUpData({ name: "", email: "", password: "" });
+    setSignUpData(emptySignUpData);
   };
 
   const handleSignUp = async () => {
+    if (!passwordsAreEqual()) {
+      alert("Passwords are not equal.");
+      return;
+    }
+
     const res = await signUpRequestApi(signUpData);
 
     //@ts-ignore
@@ -44,6 +53,10 @@ export const SignUp = () => {
     }
 
     navigate("/login");
+  };
+
+  const passwordsAreEqual = (): boolean => {
+    return signUpData.password === signUpData.confPassword;
   };
 
   return (
@@ -110,9 +123,9 @@ export const SignUp = () => {
               className="col-12 col-md-8 w-auto mx-3"
               required={true}
               type={"password"}
-              name={"conf-password"}
-              // value={signUpData.password}
-              // onChange={handleChange}
+              name={"confPassword"}
+              value={signUpData.confPassword}
+              onChange={handleChange}
             />
           </div>
 
