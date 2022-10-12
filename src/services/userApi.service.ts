@@ -12,17 +12,7 @@ import {
   IUpdateUserDataRequest,
   IUserData,
 } from "../store/ducks/userData/userData.types";
-
-const api = axios.create({
-  baseURL: "http://localhost:8080",
-});
-
-const injectJwt = (jwt: string) => {
-  const header = {
-    Authorization: `Bearer ${jwt}`,
-  };
-  return header;
-};
+import { api, injectJwt } from "./baseApi.service";
 
 export const loginRequestApi = async (
   loginData: ILoginRequest
