@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { userIsLoggedIn } from "../services/user.service";
-import { loginRequest } from "../store/ducks/currentUser/currentUser.middleware";
 import { getUsersRequest } from "../store/ducks/users/users.middleware";
 import { AppDispatch, RootState } from "../store/store";
 import { Day } from "./Day";

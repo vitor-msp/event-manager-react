@@ -17,6 +17,7 @@ export const loginRequest =
       dispatch(loginUser({ id: userId }));
     } catch (error) {
       alert("Error in login request");
+      console.log(error);
       //   dispatch(postGraphFailure());
     }
   };

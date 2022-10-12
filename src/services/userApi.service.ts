@@ -4,18 +4,9 @@ import {
   ILoginResponse,
 } from "../store/ducks/currentUser/currentUser.types";
 
-const configureAxios = () => {
-  const apiUrl: string = "http://localhost:8080";
-
-  return axios.create({
-    baseURL: apiUrl,
-    headers: {
-      "Content-type": "application/json",
-    },
-  });
-};
-
-const api = configureAxios();
+const api = axios.create({
+  baseURL: "http://localhost:8080",
+});
 
 export const loginRequestApi = async (
   loginData: ILoginRequest
