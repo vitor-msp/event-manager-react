@@ -11,7 +11,7 @@ export interface IUser {
 
 export const MyAccount = () => {
   const currentUser = useSelector((state: RootState) => state.currentUser);
-  const [userData, setUserData] = useState<IUser>({ email: "", name: "" });
+  const [userData, setUserData] = useState<IUser>({ email: "a@a.com", name: "aaaa" });
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -52,6 +52,7 @@ export const MyAccount = () => {
               type={"text"}
               value={userData.name}
               onChange={handleChangeName}
+              autoFocus={true}
             />
           </div>
 
