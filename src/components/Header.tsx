@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { setCurrentEvent } from "../store/ducks/currentEvent/currentEvent.slice";
 import { AppDispatch, RootState } from "../store/store";
+import "./Header.css";
 
 export interface IHeader {
   child: any;
@@ -18,13 +19,17 @@ export const Header: React.FC<IHeader> = (props) => {
 
   return (
     <>
-      <NavLink
-        to={"/my-account"}
-        style={{ position: "absolute", right: "5px", top: "5px" }}
-        className="btn btn-lg btn-outline-primary"
-      >
-        My Account
-      </NavLink>
+      <div className="my-div-account-buttons">
+        <NavLink
+          to={"/my-account"}
+          className="btn btn-lg btn-outline-primary mx-1"
+        >
+          My Account
+        </NavLink>
+        <NavLink to={"/logout"} className="btn btn-lg btn-outline-primary mx-1">
+          Logout
+        </NavLink>
+      </div>
 
       <div>
         <button
