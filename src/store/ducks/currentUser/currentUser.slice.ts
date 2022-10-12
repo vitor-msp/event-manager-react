@@ -12,9 +12,12 @@ const currentUserSlice = createSlice({
     loginUser: (state, { payload }: PayloadAction<ICurrentUser>) => {
       state.id = payload.id;
     },
+    logoutUser: (state) => {
+      state.id = null;
+    },
   },
 });
 
-export const { loginUser } = currentUserSlice.actions;
+export const { loginUser, logoutUser } = currentUserSlice.actions;
 
 export const currentUserReducer = currentUserSlice.reducer;

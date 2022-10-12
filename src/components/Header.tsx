@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { setCurrentEvent } from "../store/ducks/currentEvent/currentEvent.slice";
+import { logoutRequest } from "../store/ducks/currentUser/currentUser.middleware";
 import { AppDispatch, RootState } from "../store/store";
 import "./Header.css";
 
@@ -17,6 +18,10 @@ export const Header: React.FC<IHeader> = (props) => {
     dispatch(setCurrentEvent({ isAddition: true, creator: currentUser.id! }));
   };
 
+  const handleLogout = () => {
+    dispatch(logoutRequest());
+  };
+
   return (
     <>
       <div className="my-div-account-buttons">
@@ -26,7 +31,11 @@ export const Header: React.FC<IHeader> = (props) => {
         >
           My Account
         </NavLink>
-        <NavLink to={"/logout"} className="btn btn-lg btn-outline-primary mx-1">
+        <NavLink
+          to={"/login"}
+          onClick={handleLogout}
+          className="btn btn-lg btn-outline-primary mx-1"
+        >
           Logout
         </NavLink>
       </div>

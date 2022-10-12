@@ -27,7 +27,8 @@ function App() {
 
       <BrowserRouter>
         <Routes>
-          <Route path={"/" || "/login"} element={<Login />} />
+          <Route path={"/"} element={<Login />} />
+          <Route path={"/login"} element={<Login />} />
           <Route path="/month" element={<Header child={<Month />} />} />
           <Route path="/day" element={<Header child={<Day />} />} />
           <Route path="/my-account" element={<MyAccount />} />
