@@ -45,12 +45,15 @@ export const getUserDataRequestApi = async (
 export const updateUserDataRequestApi = async (
   userData: IUpdateUserDataRequest,
   jwt: string
-): Promise<void> => {
-  const res = await api.put("/user", userData, {
-    headers: injectJwt(jwt),
-  });
+): Promise<any> => {
+  const res = await api
+    .put("/user", userData, {
+      headers: injectJwt(jwt),
+    })
+    .then((res) => res)
+    .catch((error) => error.response);
 
-  if (res.status !== 200) throw new Error("Error to login.");
+  return res.data;
 };
 
 export const signUpRequestApi = async (

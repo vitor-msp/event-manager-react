@@ -2,6 +2,9 @@
 export interface IUpdateUserDataRequest {
   name: string;
 }
+export interface IUpdateUserDataFailure {
+  message: string;
+}
 export interface IUserData {
   id: number;
   email: string;

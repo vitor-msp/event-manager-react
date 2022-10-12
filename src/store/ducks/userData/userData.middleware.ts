@@ -29,10 +29,13 @@ export const updateUserDataRequest =
 
       if (!jwt) throw new Error("Error to find jwt.");
 
-      await updateUserDataRequestApi(userData, jwt);
+      const res = await updateUserDataRequestApi(userData, jwt);
+
+      if(res.message) throw new Error(res.message);
 
       dispatch(updateUserData(userData));
     } catch (error) {
-      alert("Error to get user data.");
+      //@ts-ignore
+      alert(`Error to update user data: ${error.message}`);
     }
   };
