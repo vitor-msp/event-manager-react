@@ -3,6 +3,7 @@ import {
   addEventRequestApi,
   cancelEventRequestApi,
   editEventRequestApi,
+  exitEventRequestApi,
   getEventsRequestApi,
 } from "../../../services/eventsApi.service";
 import { findJwt } from "../../../services/jwt.service";
@@ -89,14 +90,14 @@ export const exitEventRequest =
   (event: IEvent): AppThunk =>
   async (dispatch) => {
     try {
-      // simulate request;
-      const res = {
-        data: event,
-      };
+      const jwt = findJwt();
 
-      dispatch(removeEvent(res.data));
+      const res = await exitEventRequestApi(event.id, jwt);
+
+      if (res.message) throw new Error(res.message);
+
+      dispatch(removeEvent(event));
     } catch (error) {
-      alert("Error in exit event");
-      //   dispatch(postGraphFailure());
+      alert(`Error to exit of the event: ${error}`);
     }
   };

@@ -38,7 +38,7 @@ export const editEventRequestApi = async (
       headers: injectJwt(jwt),
     })
     .then((res) => res)
-    .catch((error) => error.res);
+    .catch((error) => error.response);
 
   return res.data;
 };
@@ -57,7 +57,25 @@ export const cancelEventRequestApi = async (
       data: reqBody,
     })
     .then((res) => res)
-    .catch((error) => error.res);
+    .catch((error) => error.response);
+
+  return res.data;
+};
+
+export const exitEventRequestApi = async (
+  eventId: number,
+  jwt: string
+): Promise<any> => {
+  const reqBody = {
+    eventId,
+  };
+
+  const res = await api
+    .put("/event/exit", reqBody, {
+      headers: injectJwt(jwt),
+    })
+    .then((res) => res)
+    .catch((error) => error.response);
 
   return res.data;
 };
