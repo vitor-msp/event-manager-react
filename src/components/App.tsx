@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { userIsLoggedIn } from "../services/user.service";
+import { getEventsRequest } from "../store/ducks/eventsCalendar/eventsCalendar.middleware";
 import { getUsersRequest } from "../store/ducks/users/users.middleware";
 import { AppDispatch, RootState } from "../store/store";
 import { Day } from "./Day";
@@ -19,7 +20,10 @@ function App() {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    if (userIsLoggedIn(currentUser)) dispatch(getUsersRequest());
+    if (userIsLoggedIn(currentUser)) {
+      dispatch(getUsersRequest());
+      dispatch(getEventsRequest());
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser]);
 

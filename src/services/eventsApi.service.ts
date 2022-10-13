@@ -1,0 +1,14 @@
+import { IEventsBackend, IGetEventsRequest } from "../store/ducks/eventsCalendar/eventsCalendar.types";
+import { api, injectJwt } from "./baseApi.service";
+
+export const getEventsRequestApi = async (
+  getEventsRequest: IGetEventsRequest,
+  jwt: string
+): Promise<IEventsBackend> => {
+  const res = await api.get("/event", {
+    headers: injectJwt(jwt),
+    data: getEventsRequest,
+  });
+
+  return res.data;
+};

@@ -25,19 +25,23 @@ export interface IEvent {
 export interface IGuest {
   user: number;
   permission: string;
-};
+}
 
 // edit event type
 export interface IEditEvent {
   oldStart: Date;
   editedEvent: IEvent;
-};
+}
 
 // backend type
 export interface IEventsBackend {
   year: number;
   month: number;
   days: IDay[];
+}
+export interface IGetEventsRequest {
+  year: number;
+  month: number;
 }
 
 // state type

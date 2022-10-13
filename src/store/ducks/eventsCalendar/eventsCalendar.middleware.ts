@@ -1,8 +1,5 @@
-import {
-  eventsMock2023,
-  eventsMockJul,
-  eventsMockJun,
-} from "../../../services/events.mock";
+import { getEventsRequestApi } from "../../../services/eventsApi.service";
+import { findJwt } from "../../../services/jwt.service";
 import { AppThunk } from "../../store";
 import {
   addEvent,
@@ -10,47 +7,24 @@ import {
   editEvent,
   removeEvent,
 } from "./eventsCalendar.slice";
-import { IEditEvent, IEvent } from "./eventsCalendar.types";
-
-let counter = 1;
+import { IEditEvent, IEvent, IGetEventsRequest } from "./eventsCalendar.types";
 
 export const getEventsRequest =
-  (date: Date): AppThunk =>
+  (date: Date = new Date()): AppThunk =>
   async (dispatch) => {
     try {
-      // simulate request;
-      // if (count === 1) {
-      //   dispatch(addMonth(eventsMockJun));
-      // } else if (count === 2) {
-      //   dispatch(addMonth(eventsMockJul));
-      // } else {
-      //   dispatch(addMonth(eventsMock2023));
-      // }
+      const getEventsData: IGetEventsRequest = {
+        month: date.getMonth(),
+        year: date.getFullYear(),
+      };
 
-      dispatch(
-        addMonth({
-          year: date.getFullYear(),
-          month: date.getMonth(),
-          days: [
-            {
-              day: date.getDate(),
-              events: [
-                {
-                  id: counter++,
-                  creator: 1,
-                  title: "Event Test",
-                  start: date,
-                  duration: 0,
-                  guests: [
-                    { user: 2, permission: "Editor" },
-                    { user: 3, permission: "Viewer" },
-                  ],
-                },
-              ],
-            },
-          ],
-        })
-      );
+      const jwt = findJwt();
+
+      const eventsData = await getEventsRequestApi(getEventsData, jwt);
+
+      console.log(eventsData);
+
+      dispatch(addMonth(eventsData));
     } catch (error) {
       alert("Error in request events");
       //   dispatch(postGraphFailure());
