@@ -43,6 +43,9 @@ export interface IGetEventsRequest {
   year: number;
   month: number;
 }
+export interface IAddEventResponse {
+  eventId: number;
+}
 
 // state type
 export interface IEventsCalendarState {

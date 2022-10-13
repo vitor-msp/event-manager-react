@@ -1,4 +1,7 @@
-import { getEventsRequestApi } from "../../../services/eventsApi.service";
+import {
+  addEventRequestApi,
+  getEventsRequestApi,
+} from "../../../services/eventsApi.service";
 import { findJwt } from "../../../services/jwt.service";
 import { AppThunk } from "../../store";
 import {
@@ -35,15 +38,15 @@ export const addEventRequest =
   (event: IEvent): AppThunk =>
   async (dispatch) => {
     try {
-      // simulate request;
-      const res = {
-        data: event,
-      };
+      const jwt = findJwt();
 
-      dispatch(addEvent(res.data));
+      const res = await addEventRequestApi(event, jwt);
+
+      event.id = res.eventId;
+
+      dispatch(addEvent(event));
     } catch (error) {
       alert("Error in post event");
-      //   dispatch(postGraphFailure());
     }
   };
 
