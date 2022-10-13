@@ -1,3 +1,4 @@
+import { convertEventsDate } from "../../../services/convertEventsDate.service";
 import {
   addEventRequestApi,
   getEventsRequestApi,
@@ -23,9 +24,9 @@ export const getEventsRequest =
 
       const jwt = findJwt();
 
-      const eventsData = await getEventsRequestApi(getEventsData, jwt);
+      let eventsData = await getEventsRequestApi(getEventsData, jwt);
 
-      console.log(eventsData);
+      eventsData = convertEventsDate(eventsData);
 
       dispatch(addMonth(eventsData));
     } catch (error) {
