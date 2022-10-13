@@ -1,6 +1,7 @@
 import { convertEventsDate } from "../../../services/convertEventsDate.service";
 import {
   addEventRequestApi,
+  cancelEventRequestApi,
   editEventRequestApi,
   getEventsRequestApi,
 } from "../../../services/eventsApi.service";
@@ -56,15 +57,15 @@ export const cancelEventRequest =
   (event: IEvent): AppThunk =>
   async (dispatch) => {
     try {
-      // simulate request;
-      const res = {
-        data: event,
-      };
+      const jwt = findJwt();
 
-      dispatch(removeEvent(res.data));
+      const res = await cancelEventRequestApi(event.id, jwt);
+
+      if (res.message) throw new Error(res.message);
+
+      dispatch(removeEvent(event));
     } catch (error) {
-      alert("Error in cancel event");
-      //   dispatch(postGraphFailure());
+      alert(`Error to cancel event: ${error}`);
     }
   };
 

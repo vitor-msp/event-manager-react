@@ -42,3 +42,22 @@ export const editEventRequestApi = async (
 
   return res.data;
 };
+
+export const cancelEventRequestApi = async (
+  eventId: number,
+  jwt: string
+): Promise<any> => {
+  const reqBody = {
+    eventId,
+  };
+
+  const res = await api
+    .delete("/event", {
+      headers: injectJwt(jwt),
+      data: reqBody,
+    })
+    .then((res) => res)
+    .catch((error) => error.res);
+
+  return res.data;
+};
