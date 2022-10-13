@@ -28,3 +28,17 @@ export const addEventRequestApi = async (
 
   return res.data;
 };
+
+export const editEventRequestApi = async (
+  event: IEvent,
+  jwt: string
+): Promise<any> => {
+  const res = await api
+    .put("/event", event, {
+      headers: injectJwt(jwt),
+    })
+    .then((res) => res)
+    .catch((error) => error.res);
+
+  return res.data;
+};

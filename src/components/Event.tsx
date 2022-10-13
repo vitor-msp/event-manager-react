@@ -168,16 +168,6 @@ export const Event: React.FC<EventType> = (props) => {
       </Modal.Header>
 
       <Modal.Body>
-        {/* <div className="d-flex my-2">
-          <Form.Label>{"Id: "}</Form.Label>
-          <Form.Control
-            className="w-auto mx-3"
-            disabled={true}
-            type={"text"}
-            value={currentEvent.id ?? ""}
-          />
-        </div> */}
-
         <div className="row my-2">
           <Form.Label className="col-2">{"Creator: "}</Form.Label>
           <Form.Control

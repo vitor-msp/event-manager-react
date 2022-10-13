@@ -1,6 +1,7 @@
 import { convertEventsDate } from "../../../services/convertEventsDate.service";
 import {
   addEventRequestApi,
+  editEventRequestApi,
   getEventsRequestApi,
 } from "../../../services/eventsApi.service";
 import { findJwt } from "../../../services/jwt.service";
@@ -71,15 +72,15 @@ export const editEventRequest =
   (event: IEditEvent): AppThunk =>
   async (dispatch) => {
     try {
-      // simulate request;
-      const res = {
-        data: event,
-      };
+      const jwt = findJwt();
 
-      dispatch(editEvent(res.data));
+      const res = await editEventRequestApi(event.editedEvent, jwt);
+
+      if (res.message) throw new Error(res.message);
+
+      dispatch(editEvent(event));
     } catch (error) {
-      alert("Error in put event");
-      //   dispatch(postGraphFailure());
+      alert(`Error to edit event: ${error}`);
     }
   };
 
