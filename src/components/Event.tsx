@@ -239,11 +239,12 @@ export const Event: React.FC<EventType> = (props) => {
           </button>
         )}
 
-        {!props.event.isAddition && props.event.data!.creator === 1 && (
-          <button className="btn btn-danger" onClick={handleCancelEvent}>
-            cancel event
-          </button>
-        )}
+        {!props.event.isAddition &&
+          props.event.data!.creator === currentUser.id && (
+            <button className="btn btn-danger" onClick={handleCancelEvent}>
+              cancel event
+            </button>
+          )}
 
         {!props.event.isAddition && canEdit && (
           <button className="btn btn-primary" onClick={handleEditEvent}>
