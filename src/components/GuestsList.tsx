@@ -6,18 +6,21 @@ import { RootState } from "../store/store";
 import { GuestItem } from "./GuestItem";
 
 export type GuestsType = {
+  creator: number;
   guests: IGuest[];
   canEdit: boolean;
   onChange: (guests: IGuest[]) => void;
 };
 
 export const GuestsList: React.FC<GuestsType> = (props) => {
-  const { guests, onChange, canEdit } = props;
+  const { creator, guests, onChange, canEdit } = props;
   const users = useSelector((state: RootState) => state.users.data.users);
   const currentUser = useSelector((state: RootState) => state.currentUser);
   const usersToShow = users.filter(
     (u) =>
-      u.id !== currentUser.id && guests.findIndex((g) => g.user === u.id) === -1
+      u.id !== currentUser.id &&
+      guests.findIndex((g) => g.user === u.id) === -1 &&
+      u.id !== creator
   );
 
   const handleChangePermission = (

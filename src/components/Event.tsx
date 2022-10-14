@@ -220,6 +220,7 @@ export const Event: React.FC<EventType> = (props) => {
         </div>
 
         <GuestsList
+          creator={currentEvent.creator!}
           guests={currentEvent.guests!}
           canEdit={canEdit}
           onChange={handleChangeGuests}
