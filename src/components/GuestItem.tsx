@@ -15,6 +15,8 @@ export const GuestItem: React.FC<GuestType> = (props) => {
   const { guest, canEdit, onChangePermission, onDeleteGuest } = props;
   const { user, permission } = guest;
 
+  const currentUser = useSelector((state: RootState) => state.currentUser);
+
   const guestEmail = useSelector((state: RootState) =>
     state.users.data.users.find((u) => u.id === user)
   )?.email;
@@ -33,7 +35,15 @@ export const GuestItem: React.FC<GuestType> = (props) => {
         <option value={`${user}-Editor`}>Editor</option>
       </Form.Select>
 
-      {canEdit && <span className="btn btn-sm btn-outline-danger" onClick={() => onDeleteGuest(user)}> X </span>}
+      {canEdit && user !== currentUser.id && (
+        <span
+          className="btn btn-sm btn-outline-danger"
+          onClick={() => onDeleteGuest(user)}
+        >
+          {" "}
+          X{" "}
+        </span>
+      )}
     </li>
   );
 };
