@@ -23,6 +23,41 @@ export type EventType = {
   event: IShowEvent;
 };
 
+interface IEventToShow {
+  id: number | null;
+  start: string | null;
+  end: string | null;
+  title: string | null;
+  creator: number | null;
+  guests: IGuest[] | null;
+}
+
+const formatDate = (date: Date): string => {
+  const year = date.getFullYear();
+
+  let month = date.getMonth().toString();
+  if (month.length === 1) month = `0${month}`;
+
+  let day = date.getDate().toString();
+  if (day.length === 1) day = `0${day}`;
+
+  let hours = date.getHours().toString();
+  if (hours.length === 1) hours = `0${hours}`;
+
+  let minutes = date.getMinutes().toString();
+  if (minutes.length === 1) minutes = `0${minutes}`;
+
+  return `${year}-${month}-${day}T${hours}:${minutes}`;
+};
+
+const getEndEvent = (start: Date, duration: number): string => {
+  const durationInMs = duration * 1000;
+
+  const end = new Date(start.getTime() + durationInMs);
+
+  return formatDate(end);
+};
+
 export const Event: React.FC<EventType> = (props) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const { id, creator, duration, guests, start, title } = props.event.data!;
@@ -31,13 +66,12 @@ export const Event: React.FC<EventType> = (props) => {
   const creatorEmail = useSelector((state: RootState) =>
     state.users.data.users.find((u) => u.id === creator)
   )?.email;
-  const [endEvent, setEndEvent] = useState<Date>(new Date());
-  const [currentEvent, setCurrentEvent] = useState<ICurrentEvent>({
+  const [currentEvent, setCurrentEvent] = useState<IEventToShow>({
     id,
     creator,
-    duration,
     guests,
-    start: start ?? new Date(),
+    start: formatDate(start ?? new Date()),
+    end: getEndEvent(start ?? new Date(), duration ?? 3600),
     title,
   });
 
@@ -45,13 +79,13 @@ export const Event: React.FC<EventType> = (props) => {
     setShowModal(true);
   }, []);
 
-  useEffect(() => {
-    const end = new Date(
-      currentEvent.start!.getTime() + currentEvent.duration!
-    );
+  // useEffect(() => {
+  //   //   const start = new Date(currentEvent.start!);
 
-    setEndEvent(end);
-  }, []);
+  //   //   const end = new Date(start.getTime() + currentEvent.duration!);
+
+  //   //   setEndEvent(end);
+  // }, []);
 
   useEffect(() => {
     (() => {
@@ -80,39 +114,25 @@ export const Event: React.FC<EventType> = (props) => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value);
     setCurrentEvent({ ...currentEvent, [e.target.name]: e.target.value });
   };
 
-  const handleChangeStart = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCurrentEvent({
-      ...currentEvent,
-      start: new Date(e.target.value),
-    });
-  };
+  // useEffect(() => {
+  //   const duration = endEvent.getTime() - currentEvent.start!.getTime();
 
-  const handleChangeEnd = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEndEvent(new Date(e.target.value));
-  };
-
-  useEffect(() => {
-    const duration = endEvent.getTime() - currentEvent.start!.getTime();
-
-    setCurrentEvent({
-      ...currentEvent,
-      duration,
-    });
-  }, [endEvent]);
+  //   setCurrentEvent({
+  //     ...currentEvent,
+  //     duration,
+  //   });
+  // }, [endEvent]);
 
   const handleChangeGuests = (guests: IGuest[]): void => {
     setCurrentEvent({ ...currentEvent, guests });
   };
 
-  const formatDate = (date: Date): string => {
-    return date.toISOString().substring(0, 16);
-  };
-
   const handleAddEvent = async (): Promise<void> => {
-    const eventToPost = copyEvent(currentEvent);
+    const eventToPost = convertEvent(currentEvent);
 
     await dispatch(addEventRequest(eventToPost));
 
@@ -120,23 +140,27 @@ export const Event: React.FC<EventType> = (props) => {
   };
 
   const handleExitEvent = async (): Promise<void> => {
-    const eventToExit = copyEvent(props.event.data!);
+    // const eventToExit = convertEvent(props.event.data!);
+    // await dispatch(exitEventRequest(eventToExit));
 
-    await dispatch(exitEventRequest(eventToExit));
+    //@ts-ignore
+    await dispatch(exitEventRequest(props.event.data!));
 
     handleCloseEvent();
   };
 
   const handleCancelEvent = async (): Promise<void> => {
-    const eventToCancel = copyEvent(props.event.data!);
+    // const eventToCancel = convertEvent(props.event.data!);
+    // await dispatch(cancelEventRequest(eventToCancel));
 
-    await dispatch(cancelEventRequest(eventToCancel));
+    //@ts-ignore
+    await dispatch(cancelEventRequest(props.event.data!));
 
     handleCloseEvent();
   };
 
   const handleEditEvent = async (): Promise<void> => {
-    const eventToEdit = copyEvent(currentEvent);
+    const eventToEdit = convertEvent(currentEvent);
 
     await dispatch(
       editEventRequest({
@@ -148,15 +172,20 @@ export const Event: React.FC<EventType> = (props) => {
     handleCloseEvent();
   };
 
-  const copyEvent = (event: ICurrentEvent): IEvent => {
-    const { creator, duration, guests, id, start, title } = event;
+  const convertEvent = (event: IEventToShow): IEvent => {
+    const { creator, guests, id, start, end, title } = event;
+
+    const startDate = new Date(start!);
+    const endDate = new Date(end!);
+
+    const duration: number = endDate.getTime() - startDate.getTime();
 
     return {
       creator: creator!,
-      duration: duration!,
       guests: guests!,
       id: id!,
-      start: start!,
+      start: startDate,
+      duration,
       title: title!,
     };
   };
@@ -200,9 +229,9 @@ export const Event: React.FC<EventType> = (props) => {
             required={true}
             disabled={!canEdit}
             type={"datetime-local"}
-            value={formatDate(currentEvent.start!)}
+            value={currentEvent.start!}
             name={"start"}
-            onChange={handleChangeStart}
+            onChange={handleChange}
           />
         </div>
 
@@ -213,9 +242,9 @@ export const Event: React.FC<EventType> = (props) => {
             required={true}
             disabled={!canEdit}
             type={"datetime-local"}
-            value={formatDate(endEvent)}
-            name={"duration"}
-            onChange={handleChangeEnd}
+            value={currentEvent.end!}
+            name={"end"}
+            onChange={handleChange}
           />
         </div>
 
