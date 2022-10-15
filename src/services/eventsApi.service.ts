@@ -10,10 +10,17 @@ export const getEventsRequestApi = async (
   getEventsRequest: IGetEventsRequest,
   jwt: string
 ): Promise<IEventsBackend> => {
-  const res = await api.get("/event", {
-    headers: injectJwt(jwt),
-    data: getEventsRequest,
-  });
+  const { month, year } = getEventsRequest;
+
+  // const res = await api.get<IEventsBackend, IEventsBackend, IGetEventsRequest>(
+  const res = await api
+    .get(`/event?month=${month}&year=${year}`, {
+      headers: injectJwt(jwt),
+    })
+    .then((res) => res)
+    .catch((error) => error.response);
+
+  console.log(res);
 
   return res.data;
 };

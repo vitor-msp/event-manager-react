@@ -114,18 +114,8 @@ export const Event: React.FC<EventType> = (props) => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
     setCurrentEvent({ ...currentEvent, [e.target.name]: e.target.value });
   };
-
-  // useEffect(() => {
-  //   const duration = endEvent.getTime() - currentEvent.start!.getTime();
-
-  //   setCurrentEvent({
-  //     ...currentEvent,
-  //     duration,
-  //   });
-  // }, [endEvent]);
 
   const handleChangeGuests = (guests: IGuest[]): void => {
     setCurrentEvent({ ...currentEvent, guests });
