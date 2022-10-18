@@ -31,10 +31,12 @@ export const getEventsRequest =
 
       eventsData = convertEventsDate(eventsData);
 
+      console.log(eventsData);
+
       dispatch(addMonth(eventsData));
     } catch (error) {
       alert("Error in request events");
-      //   dispatch(postGraphFailure());
+      console.log(error);
     }
   };
 
@@ -51,6 +53,7 @@ export const addEventRequest =
       dispatch(addEvent(event));
     } catch (error) {
       alert("Error in post event");
+      console.log(error);
     }
   };
 

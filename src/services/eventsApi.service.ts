@@ -20,7 +20,7 @@ export const getEventsRequestApi = async (
     .then((res) => res)
     .catch((error) => error.response);
 
-  console.log(res);
+  // console.log(res);
 
   return res.data;
 };

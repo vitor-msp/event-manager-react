@@ -35,7 +35,7 @@ interface IEventToShow {
 const formatDate = (date: Date): string => {
   const year = date.getFullYear();
 
-  let month = date.getMonth().toString();
+  let month = (date.getMonth() + 1).toString();
   if (month.length === 1) month = `0${month}`;
 
   let day = date.getDate().toString();
@@ -50,8 +50,8 @@ const formatDate = (date: Date): string => {
   return `${year}-${month}-${day}T${hours}:${minutes}`;
 };
 
-const getEndEvent = (start: Date, duration: number): string => {
-  const durationInMs = duration * 1000;
+const getEndEvent = (start: Date, durationInSec: number): string => {
+  const durationInMs = durationInSec * 1000;
 
   const end = new Date(start.getTime() + durationInMs);
 
@@ -168,7 +168,7 @@ export const Event: React.FC<EventType> = (props) => {
     const startDate = new Date(start!);
     const endDate = new Date(end!);
 
-    const duration: number = endDate.getTime() - startDate.getTime();
+    const duration: number = (endDate.getTime() - startDate.getTime()) / 1000;
 
     return {
       creator: creator!,
