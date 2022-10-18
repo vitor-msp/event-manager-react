@@ -27,7 +27,6 @@ export const Day = () => {
 
   useEffect(() => {
     (async () => {
-      console.log(currentDate);
       const month = findMonth();
 
       if (month) {
@@ -116,6 +115,7 @@ export const Day = () => {
                 width: "50px",
               }}
               className="border"
+              key={d}
             >
               <span className="text-secondary">{d} AM</span>
             </div>
