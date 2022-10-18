@@ -253,11 +253,12 @@ export const Event: React.FC<EventType> = (props) => {
           </button>
         )}
 
-        {!props.event.isAddition && (
-          <button className="btn btn-danger" onClick={handleExitEvent}>
-            exit of the event
-          </button>
-        )}
+        {!props.event.isAddition &&
+          props.event.data!.creator !== currentUser.id && (
+            <button className="btn btn-danger" onClick={handleExitEvent}>
+              exit of the event
+            </button>
+          )}
 
         {!props.event.isAddition &&
           props.event.data!.creator === currentUser.id && (
