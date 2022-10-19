@@ -60,7 +60,7 @@ const getEndEvent = (start: Date, durationInSec: number): string => {
 
 export const Event: React.FC<EventType> = (props) => {
   const [showModal, setShowModal] = useState<boolean>(false);
-  const { id, creator, duration, guests, start, title } = props.event.data!;
+  const { id, creator, title, start, duration, guests } = props.event.data!;
   const [canEdit, setCanEdit] = useState<boolean>(false);
   const currentUser = useSelector((state: RootState) => state.currentUser);
   const creatorEmail = useSelector((state: RootState) =>
@@ -78,14 +78,6 @@ export const Event: React.FC<EventType> = (props) => {
   useEffect(() => {
     setShowModal(true);
   }, []);
-
-  // useEffect(() => {
-  //   //   const start = new Date(currentEvent.start!);
-
-  //   //   const end = new Date(start.getTime() + currentEvent.duration!);
-
-  //   //   setEndEvent(end);
-  // }, []);
 
   useEffect(() => {
     (() => {
@@ -130,11 +122,16 @@ export const Event: React.FC<EventType> = (props) => {
   };
 
   const handleExitEvent = async (): Promise<void> => {
-    // const eventToExit = convertEvent(props.event.data!);
-    // await dispatch(exitEventRequest(eventToExit));
+    const eventToExit: IEvent = {
+      id: id!,
+      creator: creator!,
+      title: title!,
+      start: start!,
+      duration: duration!,
+      guests: guests!,
+    };
 
-    //@ts-ignore
-    await dispatch(exitEventRequest(props.event.data!));
+    await dispatch(exitEventRequest(eventToExit));
 
     handleCloseEvent();
   };

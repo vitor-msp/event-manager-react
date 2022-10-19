@@ -31,8 +31,6 @@ export const getEventsRequest =
 
       eventsData = convertEventsDate(eventsData);
 
-      console.log(eventsData);
-
       dispatch(addMonth(eventsData));
     } catch (error) {
       alert("Error in request events");
