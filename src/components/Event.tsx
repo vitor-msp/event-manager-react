@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Form, Modal } from "react-bootstrap";
 import { clearCurrentEvent } from "../store/ducks/currentEvent/currentEvent.slice";
 import {
-  ICurrentEvent,
   IShowEvent,
 } from "../store/ducks/currentEvent/currentEvent.types";
 import {
@@ -96,6 +95,7 @@ export const Event: React.FC<EventType> = (props) => {
       }
       setCanEdit(false);
     })();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const dispatch = useDispatch<AppDispatch>();

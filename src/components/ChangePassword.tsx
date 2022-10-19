@@ -1,13 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState } from "react";
 import { Form } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../store/store";
-import {
-  getUserDataRequest,
-  updateUserDataRequest,
-} from "../store/ducks/userData/userData.middleware";
-import { changePasswordRequestApi } from "../services/userApi.service";
 import { changePasswordRequest } from "../services/user.service";
 
 export interface IChangePasswordRequest {
