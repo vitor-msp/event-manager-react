@@ -12,15 +12,12 @@ export const getEventsRequestApi = async (
 ): Promise<IEventsBackend> => {
   const { month, year } = getEventsRequest;
 
-  // const res = await api.get<IEventsBackend, IEventsBackend, IGetEventsRequest>(
   const res = await api
     .get(`/event?month=${month}&year=${year}`, {
       headers: injectJwt(jwt),
     })
     .then((res) => res)
     .catch((error) => error.response);
-
-  // console.log(res);
 
   return res.data;
 };

@@ -137,11 +137,16 @@ export const Event: React.FC<EventType> = (props) => {
   };
 
   const handleCancelEvent = async (): Promise<void> => {
-    // const eventToCancel = convertEvent(props.event.data!);
-    // await dispatch(cancelEventRequest(eventToCancel));
+    const eventToCancel: IEvent = {
+      id: id!,
+      creator: creator!,
+      title: title!,
+      start: start!,
+      duration: duration!,
+      guests: guests!,
+    };
 
-    //@ts-ignore
-    await dispatch(cancelEventRequest(props.event.data!));
+    await dispatch(cancelEventRequest(eventToCancel));
 
     handleCloseEvent();
   };
