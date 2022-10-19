@@ -13,6 +13,5 @@ export const getUsersRequest = (): AppThunk => async (dispatch) => {
     dispatch(addUsers(users));
   } catch (error) {
     alert("Error in request users");
-    //   dispatch(postGraphFailure());
   }
 };
