@@ -30,7 +30,7 @@ export interface IGuest {
 // edit event type
 export interface IEditEvent {
   oldStart: Date;
-  editedEvent: IEvent;
+  editedEvent: IEditEventBackend;
 }
 
 // backend type
@@ -45,6 +45,15 @@ export interface IGetEventsRequest {
 }
 export interface IAddEventResponse {
   eventId: number;
+}
+export interface IEditEventBackend {
+  id: number;
+  start: Date;
+  duration: number;
+  title: string;
+  creator: number;
+  guests: IGuest[];
+  guestsToRemove: number[];
 }
 
 // state type

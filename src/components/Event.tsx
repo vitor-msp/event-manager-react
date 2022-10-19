@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Modal } from "react-bootstrap";
 import { clearCurrentEvent } from "../store/ducks/currentEvent/currentEvent.slice";
-import {
-  IShowEvent,
-} from "../store/ducks/currentEvent/currentEvent.types";
+import { IShowEvent } from "../store/ducks/currentEvent/currentEvent.types";
 import {
   cancelEventRequest,
   editEventRequest,
@@ -95,7 +93,7 @@ export const Event: React.FC<EventType> = (props) => {
       }
       setCanEdit(false);
     })();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const dispatch = useDispatch<AppDispatch>();
@@ -157,11 +155,25 @@ export const Event: React.FC<EventType> = (props) => {
     await dispatch(
       editEventRequest({
         oldStart: props.event.data!.start!,
-        editedEvent: eventToEdit,
+        editedEvent: { ...eventToEdit, guestsToRemove: getRemovedGuests() },
       })
     );
 
     handleCloseEvent();
+  };
+
+  const getRemovedGuests = (): number[] => {
+    const initialGuests = guests!;
+    const finalGuests = currentEvent.guests!;
+
+    const removedGuests: number[] = initialGuests
+      .filter(
+        (initial) =>
+          finalGuests.findIndex((final) => final.user === initial.user) === -1
+      )
+      .map((removed) => removed.user);
+
+    return removedGuests;
   };
 
   const convertEvent = (event: IEventToShow): IEvent => {

@@ -1,5 +1,6 @@
 import {
   IAddEventResponse,
+  IEditEventBackend,
   IEvent,
   IEventsBackend,
   IGetEventsRequest,
@@ -34,7 +35,7 @@ export const addEventRequestApi = async (
 };
 
 export const editEventRequestApi = async (
-  event: IEvent,
+  event: IEditEventBackend,
   jwt: string
 ): Promise<any> => {
   const res = await api
