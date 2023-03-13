@@ -4,6 +4,8 @@ Website for event management (inspired by Google Calendar).
 
 The backend (API) can be access [here](https://github.com/vitor-msp/event-manager-api)
 
+![demo](gif/demo.gif)
+
 ## Execution
 
 1. Clone this repository
